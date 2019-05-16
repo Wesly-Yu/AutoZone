@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <title>Example用例执行报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    .row {
+        padding-top: 5px;
+        margin-top: -150px;
+    }
+    h1 {
+        margin-left: -90px;
+        padding-top: 200px;
+    }
+    p {
+        margin-left: -90px;
+        padding-top: 10px;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        left: 0px;
+        {#top: -50px;#}
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        margin-top: -30px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 95%;
+        margin-left: 40px;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    /*#div_base {*/
+                /*position:absolute;*/
+                /*top:0%;*/
+                /*left:5%;*/
+                /*right:5%;*/
+                /*width: auto;*/
+                /*height: auto;*/
+                /*margin: -15px 0 0 0;*/
+    /*}*/
+</style>
+</head>
+<body>
+<script language="javascript" type="text/javascript">
+</script>
+<div class='row'>
+    <div class="col-md-10 col-md-offset-1" >
+        <h1>用例执行报告</h1>
+        <p class='attribute'><strong>开始时间:</strong></p>
+        <p class='attribute'><strong>运行时长:</strong></p>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-7">
+                <div id="chart" style="width:50%;height:400px;float:left;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top:-100px;margin-right: 440px">
+    <div class="btn-group btn-group-sm" style="margin-top: -50px">
+    <button class="btn btn-info" onclick='javascript:showCase(2)'>全部</button>
+    <button class="btn btn-success" onclick='javascript:showCase(0)'>成功</button>
+    <button class="btn btn-danger" onclick='javascript:showCase(1)'>失败</button>
+    <button class="btn btn-warning" onclick='javascript:showCase(2)'>错误</button>
+    </div>
+</div>
+<table class="table table-bordered table-striped" style="width: 1450px;margin-left: 40px;margin-top: -120px;padding-bottom: 30px">
+    <colgroup>
+        <col align='left' />
+        <col align='right' />
+        <col align='right' />
+        <col align='right' />
+        <col align='right' />
+        <col align='right' />
+    </colgroup>
+    <tr id='header_row'>
+        <th>测试套件/测试用例</th>
+        <th>查看日志</th>
+        <th style="width: 250px" id="task_result">测试结果</th>
+        <th style="width: 120px">结束时间</th>
+
+    </tr>
+    <tbody>
+    <tr id="result">
+        {% for task in tasks %}
+        <td style="font-size: 12px">{{task.task_id}}/{{task.task_modelname}}/{{task.task_casename}}</td>
+        <td>{{task.task_log}}</td>
+        <td style="font-size: 15px;text-align: center">{{task.task_result}}</td>
+        <td>{{task.update_time}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div id='ending'>&nbsp</div>
+        
+<script type="text/javascript">
+    function get_value() {
+       var valueTr= document.getElementById("result").cell[2];
+       value =valueTr.innerHTML;
+       console.info(value)
+    }
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: '测试执行情况',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} &lt;br/>{b} : {c} ({d}%)"
+        },
+        color: ['#d93b32', '#2b4252', '#5fa1a9'],
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['Pass','Fail','Error']
+        },
+        series : [
+            {
+                name: '测试执行情况',
+                type: 'pie',
+                radius : '40%',
+                center: ['45%', '40%'],
+                data:[
+                    {value:{{ pass_count}}, name:'通过'},
+                    {value:{{ fail_count }}, name:'失败'},
+                    {value:0, name:'错误'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

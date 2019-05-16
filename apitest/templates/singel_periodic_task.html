@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口测试平台</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link href="https://cdn.bootcss.com/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 43px">
+    <div class="container">
+        <ul class="nav nav-justified">
+            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="col-sm-offset-4" style="font-size: 20px;color: #53245d;padding-top: 80px">
+    <h5 href="#" style="font-size: 25px">单一接口定时任务</h5>
+</div>
+<form class="navbar-form"  style="padding-top: 30px;margin-left: 7px">
+    <div class="form-group">
+        <input id="ipt2" name="Api_name" type="text" placeholder="用例名称" class="form-control">
+    </div>
+    <button id="btn0" type="submit" class="btn btn-default" style="background:#53245d;color: white;">搜索</button>
+    {% csrf_token %}
+</form>
+<div class="col-md-10 col-md-offset-7" style="margin-top: -45px;">
+    <button type="button" id="btn1" class="btn btn-default" style="background:#53245d;color:white;" data-toggle="modal" data-target="#addMyModal2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp&nbsp添加</button>
+    <button type="button" id="startTaskBtn" class="btn btn-default" style="background:#53245d;color:white;margin-left: -5px"><span class="glyphicon glyphicon-flash"></span>&nbsp&nbsp立即执行</button>
+    <button type="button" id="btn2" class="btn btn-default" style="background:#53245d;color:white;margin-left: -5px"><span class="glyphicon glyphicon-check"></span>&nbsp&nbsp执行选中的</button>
+    <button type="button" id="alarmTaskBtn" class="btn btn-default" style="background:#53245d;color:white;margin-left: -5px" data-toggle="modal" data-target="#addMyModal3"><span class="glyphicon glyphicon-play"></span>&nbsp&nbsp设置定时任务</button>
+    <button type="button" id="btn4" class="btn btn-default" style="background:#53245d;color:white;margin-left: -5px"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbsp查看测试报告</button>
+</div>
+<div class="row" style="margin-top: 10px;margin-left: 10px">
+    <div class="col-md-11">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>选中</th><th>ID</th><th>任务模块</th><th>任务名称</th><th>状态</th><th>日志</th><th>失败重跑次数</th><th>执行结果</th><th>创建时间</th><th>最后执行时间</th><th style="width: 160px">编辑</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for task in tasks %}
+                <td id="checkboxtwo"><input type="checkbox" onclick="go_addtwo('{{task.task_id}}','{{task.task_modelname}}','{{task.task_casename}}')"></td>
+                <td>{{task.task_id}}</td>
+                <td>{{task.task_modelname}}</td>
+                <td>{{task.task_casename}}</td>
+                <td>{{task.task_status}}</td>
+                <td>{{task.task_log}}</td>
+                <td>{{task.task_retry}}</td>
+                <td>{{task.task_result}}</td>
+                <td>{{task.create_time}}</td>
+                <td>{{task.update_time}}</td>
+                <td><button class="btn btn-default sm" data-toggle="modal"  data-target="#myModal2" type="button">删除</button>
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body"><strong>删除用例</strong></div>
+                            <h6 class="modal-title" id="myModalLabel" style="color: #53245d; margin-left: 200px;font-size: 15px"><strong>删除后无法撤销，请确认</strong></h6>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" name="deleBtn" id="deleBtn" onclick="go_delete('{{task.task_id}}')"  data-dismiss="modal"  style="background:#53245d;color:white;">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 模态框示例（Modal） -->
+<!--定时任务页面-->
+<div class="modal fade" id="addMyModal3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 15px;margin-left: 190px"><strong>设置任务执行时间</strong></h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-group" method="POST" id="form">
+                    <label for="date" class="col-md-2 control-label" style="padding-top: 8px">选择时间</label>
+                    <div class="input-group date form_date col-md-2"  id="date" data-date-format="yyyy-MM-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" id="Timed_task" type="text" value="startTime" style="width:200px" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove" ></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div><br>
+                    <label for="processtime">执行间隔时间</label>
+                    <input type="text"  name="processname" style="margin-left: 30px" id="processtime" placeholder="minutes/percecond">
+                </form>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button id="settimeBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="background:#53245d;color: white;">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增-->
+<div class="modal fade" id="addMyModal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">添加定时任务</h4>
+        </div>
+        <div class="modal-body">
+            <form role="form" class="form-group" id="change_form">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="50px">选中</th>
+                        <th>ID</th>
+                        <th>模块名称</th>
+                        <th>用例名称</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for step  in steps %}
+                        <td id="checkboxone"><input type="checkbox" onclick="go_add('{{step.productid}}','{{step.Product}}','{{step.Apiname}}','{{step.Apiurl}}','{{step.Apimethod}}',{{step.Apiheader}},{{step.Apiformdata}},{{step.Apiexpectresult}})"></td>
+                        <td>{{step.productid}}</td>
+                        <td>{{step.Product}}</td>
+                        <td>{{step.Apiname}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            <button id="adddataBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="background:#53245d;color: white;">确认</button>
+        </div>
+    </div>
+  </div>
+</div>
+<nav>
+    <ul class="pager pagination navbar-fixed-bottom">
+        {% if tasks.has_previous %}
+        <li class="previous"><a href="?page={{singel_tasks.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
+        {% endif %}
+        {% for num in singel_tasks.paginator.page_range %}
+        {% if num == currentPage %}
+        <li class="item active"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% else %}
+        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if singel_tasks.has_next %}
+        <li class="next"><a href="?page={{singel_tasks.next_page_number}}"  style="margin-right: 800px">下一页</a></li>
+        {% else %}
+        <li class="next disabled"><a href="#" style="margin-right: 800px">下一页</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<script>
+    // 添加用例到任务执行列表中
+    // var id,apiname,modelname;
+    var obj=new Array();
+    function go_add(productid,Product,Apiname,Apiurl,Apimethod,Apiheader,Apiformdata,Apiexpectresult){
+       var  temp={};
+        for(var i=0;i<=obj.length;i++)
+        temp['id'] = productid;
+        temp['modelname'] = Product;
+        temp['apiname'] = Apiname;
+        temp['apiurl'] = Apiurl;
+        temp['apimethod'] = Apimethod;
+        temp['apiheader'] = Apiheader;
+        temp['apiformdata'] = Apiformdata;
+        temp['apiexpectresult'] = Apiexpectresult;
+        obj.push(temp);
+        objstring = JSON.stringify(obj)
+    }
+    $('#adddataBtn').click(function () {
+        console.log(objstring);
+            $.ajax({
+                cache: false,
+                url: "addtask_data/",
+                dataType: 'text',
+                type: 'POST',
+                async: false,
+                data: {objstring},
+               success: function (data) {
+                    alert("提交成功");
+                    window.location.reload();
+                    console.log(data)
+               },
+               error:function (data) {
+                    alert("提交失败");
+                    window.location.reload();
+                    console.log(data)
+               }
+            });
+    });
+  //删除任务列表中的不需要执行的用例
+ //点击确认删除
+    var del_id;
+    function go_delete (id) {
+        del_id = id;
+    }
+    $('#deleBtn').click(function () {
+        console.log(del_id);
+        $.ajax({
+            cache: false,
+            url: "delete_id/",
+            dataType: 'text',
+            type: 'POST',
+            async: false,
+            data: {
+                "id": del_id
+            },
+            success: function (data) {
+                alert('删除成功');
+                window.location.reload()
+            },
+            error: function (data) {
+                console.log(data);
+                alert('删除失败')
+            }
+        })
+    });
+    //设置用例执行时间和次数
+    $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd hh:ii:ss",
+        statView: 2,
+        todayBtn: true,
+        autoclose: true,
+        todayHighlight: 1,
+        startDate: "2018-10-14 10:00",
+        endDate :"2035-01-01"
+    });
+    //点击立即执行任务列表中的用例
+    $("#startTaskBtn").click(function(){
+        $.ajax({
+            url:"start_immediately_task/",
+            type:'POST',
+            dataType:'text',
+        });
+
+    });
+    //点击发起定时任务
+    $("#settimeBtn").click(function () {
+        $.ajax({
+            cache: false,
+            url: "start_time_taske/",
+            dataType:'text',
+            type: 'POST',
+            async: true,
+            data: {
+                'date' :$("#Timed_task").val(),
+                'frequency':$("#processtime").val(),
+            },
+            success: function (data) {
+                console.info(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口测试平台</title>py
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
+    <div class="container" style="height: 40px">
+        <ul class="nav nav-justified">
+            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
+        </ul>
+        <a class="navbar-brand" href="#" target="allFrame"></a>
+    </div>
+</nav>
+<div class="col-sm-offset-5" style="font-size: 20px;color: #53245d;padding-top: 50px">
+    <h5 href="#" style="font-size: 25px">邮件地址添加与使用</h5>
+</div>
+<form class="navbar-form" method="get" action="//">
+    <div class="form-group" style="margin-left: 94px; margin-top: 30px">
+        <input id="ipt2" name="project_name" type="text" placeholder="关键字搜索" class="form-control" style="margin-top:-8px">
+        <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white;margin-top:-8px;margin-left: -5px">搜索</button>
+    </div>
+    {% csrf_token %}
+</form>
+<button class="btn btn-default" style="background:#53245d;margin-left:358px;color:white;margin-top: -74px" data-toggle="modal" data-target="#addMyModal3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增收件人</button>
+<button class="btn btn-default" style="background:#53245d;margin-left:-5px;color:white;margin-top: -74px" data-toggle="modal" data-target="#addMyModal4"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加发件人信息</button>
+<div class="container" style="width: 1450px">
+    <table id="table" class="table table-striped table-hover table-bordered"  style="margin-left:0px;margin-top: -30px;table-layout: fixed">
+        <thead>
+        <tr>
+            <th width="60px">选择</th><th>ID</th><th>发件人</th><th>收件人地址</th><th>邮件主题</th><th>邮箱端口号</th><th>邮件主体内容</th><th>编辑</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for email in emails %}
+        <tr>
+            {% if email.receivers != null  %}
+            <td id="checkboxone" ><input type="checkbox" onclick="go_get('{{ email.email.id}}')"></td>
+            <td>{{ email.email_id }}</td>
+            <td>{{ email.sender }}</td>
+            <td>{{ email.receivers }}</td>
+            <td>{{ email.subject }}</td>
+            <td>{{ email.email_port }}</td>
+            <td>{{ email.body }}</td>
+            <td><button class="btn btn-default sm" data-toggle="modal" id="editemaildata" data-target="#myModal2" type="button" onclick="go_edit('{{ email.email_id }}')">编辑</button>
+                <button class="btn btn-default sm" data-toggle="modal" data-target="#myModal5" type="button" onclick="go_delete('{{ email.email_id }}')" >删除</button>
+            </td>
+        {% else %}
+        {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{#新增收件人模态框#}
+<div class="modal fade" id="addMyModal3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 15px;margin-left: 190px"><strong>添加邮件的发送人</strong></h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-group" method="POST" id="form" action="/add_email_recevier/">
+                    <label for="sender_email_site">发件人邮箱地址</label>
+                    <input type="text"  name="sender_email_site" class="form-control" id="sender_email_site" placeholder="发件人邮箱地址">
+                    <label for="recevier_email_sites">收件人邮箱地址</label>
+                    <input type="text" name="recevier_email_sites" class="form-control" id="recevier_email_sites" placeholder="收件人邮箱地址">
+                    <label for="email_subject">邮件主题</label>
+                    <input type="text" name="email_subject" class="form-control" id="email_subject" placeholder="邮件主题">
+                    <label for="recevier_email_port">收件人邮箱端口</label>
+                    <input type="text" name="recevier_email_port" class="form-control" id="recevier_email_port" placeholder="收件人邮箱端口">
+                    <label for="email_body">邮件主题内容</label>
+                    <input type="text" name="email_body" class="form-control" id="email_body" placeholder="邮件主题内容">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit"  class="btn btn-default" id="adddata" style="background:#53245d;color:white;">提交</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#新增发件人信息模态框#}
+<div class="modal fade" id="addMyModal4">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 15px;margin-left: 190px"><strong>添加发件人的账号密码</strong></h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-group" method="POST" id="form" action="/add_email_sendermessage/">
+                    <label for="sender_site">发件人邮箱地址</label>
+                    <input type="text"  name="sender_site" class="form-control" id="sender_site" placeholder="发件人邮箱地址">
+                    <label for="recevier_email_sites">发件人邮箱登录密码</label>
+                    <input type="text" name="sender_email_password" class="form-control" id="sender_email_password" placeholder="发件人邮箱登录密码">
+                    <label for="smtpserver">发送邮箱服务器</label>
+                    <input type="text" name="smtpserver" class="form-control" id="smtpserver" placeholder="发送邮箱服务器">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit"  class="btn btn-default" id="add_sender_data" style="background:#53245d;color:white;">提交</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#删除按键的模态框#}
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body"><strong>删除用例</strong></div>
+            <h6 class="modal-title" id="myModalLabel" style="color: #53245d; margin-left: 200px;font-size: 15px"><strong>删除后无法撤销，请确认</strong></h6>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" name="deleBtn" id="deleBtn"   data-dismiss="modal"  style="background:#53245d;color:white;">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+{#编辑的模态框#}
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 15px;margin-left: 190px"><strong>添加发件人的账号密码</strong></h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-group" method="POST" id="form">
+                    <label for="sender_email_site">发件人邮箱地址</label>
+                    <input type="text"  name="edit_sender_email_site" class="form-control" id="edit_sender_email_site" placeholder="发件人邮箱地址">
+                    <label for="recevier_email_sites">收件人邮箱地址</label>
+                    <input type="text" name="edit_recevier_email_sites" class="form-control" id="edit_recevier_email_sites" placeholder="收件人邮箱地址">
+                    <label for="email_subject">邮件主题</label>
+                    <input type="text" name="edit_email_subject" class="form-control" id="edit_email_subject" placeholder="邮件主题">
+                    <label for="recevier_email_port">收件人邮箱端口</label>
+                    <input type="text" name="edit_recevier_email_port" class="form-control" id="edit_recevier_email_port" placeholder="收件人邮箱端口">
+                    <label for="email_body">邮件主题内容</label>
+                    <input type="text" name="edit_email_body" class="form-control" id="edit_email_body" placeholder="邮件主题内容">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit"  class="btn btn-default" id="edit_sender_data" name="edit_sender_data" style="background:#53245d;color:white;">提交</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    //点击删除单条信息
+     var email_id;
+    function go_delete(id) {
+        email_id = id
+    }
+    $("#deleBtn").click(function(){
+        $.ajax({
+            url:"delete_email/",
+            type:'POST',
+            dataType:'text',
+            data:{
+                "id":email_id,
+            },
+            success: function (data) {
+                alert("删除成功");
+                window.location.reload();
+                console.log(data);
+            },
+            error:function (data) {
+                console.log(data);
+                alert("数据重复/提交失败");
+            }
+    });
+ });
+    //点击编辑单条信息
+    var  emai_idtwo;
+    function go_edit(id) {
+        emai_idtwo = id
+    }
+    $("#edit_sender_data").click(function(){
+        $.ajax({
+            url:"edit_email_data/",
+            type:'POST',
+            dataType:'text',
+            async:false,
+            data:{
+                "id":emai_idtwo,
+                "edit_sender_email_site":$("#edit_sender_email_site").val(),
+                "edit_recevier_email_sites":$("#edit_recevier_email_sites").val(),
+                "edit_email_subject":$("#edit_email_subject").val(),
+                "edit_recevier_email_port":$("#edit_recevier_email_port").val(),
+                "edit_email_body":$("#edit_email_body").val(),
+            },
+            success: function (data) {
+                alert("编辑成功");
+                window.location.reload();
+                console.log(data);
+            },
+            error:function (data) {
+                console.log(data);
+                alert("编辑失败");
+            }
+    });
+ });
+</script>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>自动化测试平台V1.0</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/htmleaf-demo.css' %}">
+    <![endif]-->
+ <style type="text/css">
+
+.form-horizontal{
+    background: #fff;
+    margin-top: 80px;
+    padding-bottom: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+.form-bg{
+    background : #1d7db1;
+}
+.form-horizontal .heading{
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 35px 0;
+    border-bottom: 1px solid #f0f0f0;
+    padding-top: 100px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form-horizontal .form-group{
+    padding: 0 40px;
+    margin: 0 0 25px 0;
+    position: relative;
+}
+.form-horizontal .form-control{
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    box-shadow: none;
+    padding: 0 20px 0 45px;
+    height: 40px;
+    transition: all 0.3s ease 0s;
+    width: 350px;
+    display: inline-block;
+}
+.form-horizontal .form-control:focus{
+    background: #e0e0e0;
+    box-shadow: none;
+    outline: 0 none;
+}
+.form-horizontal .form-group i{
+    position: absolute;
+    top: 12px;
+    left: 60px;
+    font-size: 17px;
+    color: #c8c8c8;
+    transition : all 0.5s ease 0s;
+}
+.form-horizontal .form-control:focus + i{
+    color: #00b4ef;
+}
+.form-horizontal .fa-question-circle{
+    /*display: inline-block;*/
+    margin-right: 80px;
+    position: absolute;
+    top: 12px;
+    right: 60px;
+    font-size: 20px;
+    color: #808080;
+    transition: all 0.5s ease 0s;
+}
+.form-horizontal .fa-question-circle:hover{
+    color: #000;
+}
+.form-horizontal .fa-user{
+    margin-left: 80px;
+}
+.form-horizontal .fa-lock:before{
+    margin-left: 80px;
+
+}
+.form-horizontal .main-checkbox{
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: #11a3fc;
+    border-radius: 50%;
+    position: relative;
+    margin: 5px 0 0 5px;
+    border: 1px solid #11a3fc;
+    margin-left: 100px;
+}
+.form-horizontal .main-checkbox label{
+    width: 20px;
+    height: 20px;
+    margin-left: 200px;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+.form-horizontal .main-checkbox label:after{
+    content: "";
+    width: 10px;
+    height: 5px;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    border: 3px solid #fff;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.form-horizontal .main-checkbox input[type=checkbox]{
+    visibility: hidden;
+}
+.form-horizontal .main-checkbox input[type=checkbox]:checked + label:after{
+    opacity: 1;
+}
+.form-horizontal .text{
+    float: left;
+    margin-left: 7px;
+    line-height: 20px;
+    padding-top: 5px;
+    text-transform: capitalize;
+    font-size: 13px;
+    color:#8c8c8c;
+}
+.form-horizontal .btn{
+    float: right;
+    font-size: 12px;
+    color: #fff;
+    background: #00b4ef;
+    border-radius: 20px;
+    padding: 10px 25px;
+    border: none;
+    text-transform: capitalize;
+    transition: all 0.5s ease 0s;
+    margin-right:100px ;
+}
+    body{
+        background: url("{%  static 'img/5b10b76740232.jpg' %}") no-repeat center fixed;
+        background-size:100%;
+}
+@media only screen and (max-width: 479px){
+    .form-horizontal .form-group{
+        padding: 0 25px;
+    }
+    .form-horizontal .form-group i{
+        left: 45px;
+    }
+    .form-horizontal .btn{
+        padding: 10px 20px;
+    }
+}
+
+ </style>
+  </head>
+  <body>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <form class="form-horizontal" method="post" action="/login/">
+                <span class="heading">自动化测试平台V1.0</span>
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control"  placeholder="用户名">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="form-group help">
+                    <input type="password" name="password" class="form-control" id="user-pass" placeholder="密　码">
+                    <i class="fa fa-lock"></i>
+                    <a href="#" class="fa fa-question-circle"></a>
+                </div>
+                <div class="form-group">
+                    <div class="main-checkbox">
+                        <input type="checkbox" value="None" id="checkbox1" name="check"/>
+                        <label for="checkbox1"></label>
+                    </div>
+                    <span class="text">Remember me</span>
+                    <button type="submit" id="submit" class="btn btn-default">登录</button>
+                    <br>{% for message in messages %}
+                    <div class="alert alert-{message.tags}}" style="font-size: 20px;color: red;margin-left: 10px;padding-top: 30px">{{message}}</div>
+                    {% endfor %}
+                </div>
+                {% csrf_token %}
+                </form>
+            </form>
+        </div>
+    </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

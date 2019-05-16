@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="bootstrap-fileinput/css/fileinput.min.cssbootstrap-fileinput/js/fileinput.min.js">-->
+
+</head>
+<style type="text/css">
+    h4{
+        padding-left: 350px;
+        padding-top: 80px;
+    }
+</style>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
+    <div class="container">
+        <ul class="nav nav-justified">
+            <li class="navbar-link" style="float: left"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+            <li class="navbar-link" style="float: left"><a href="/login/" target="_top" style="margin-top: 12px">退出</a></li>
+        </ul>
+        <button type="button" class="btn btn-default btn-sm" style="margin-left: 1170px;margin-top: -67px" data-toggle="modal" data-target="#addMyModal2"><a href="http://www.bootcss.com/" class="button button-glow button-border button-rounded button-primary">上传测试用例</a></button>
+    </div>
+</nav>
+<div class="col-sm-offset-2">
+    <h4 href="#">欢迎您，来到 AutoZoneV1.0</h4>
+</div>
+<div class="col-md- col-md-3 main" style="padding-top: 30px">
+    <div class="thumbnail" >
+        <img src="{% static 'img/task.jpg' %}"   alt="">
+        <div class="caption">
+            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
+        </div>
+        </img>
+    </div>
+</div>
+<div class="col-md-3 col-md-3 main" style="padding-top: 30px">
+    <div class="thumbnail" >
+        <img src="{% static 'img/error.jpg' %}"  alt="">
+        <div class="caption">
+            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
+        </div>
+        </img>
+    </div>
+</div>
+<div class="col-md-4 col-md-3 main" style="padding-top: 30px">
+    <div class="thumbnail">
+        <img src="{% static 'img/case.jpg' %}"  alt="">
+        <div class="caption">
+            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
+        </div>
+        </img>
+    </div>
+</div>
+<div class="col-md-5 col-md-3 main" style="padding-top: 30px">
+    <div class="thumbnail" >
+        <img src="{% static 'img/feedback.jpg' %}"  alt="">
+        <div class="caption">
+            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
+        </div>
+        </img>
+    </div>
+</div>
+</div>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

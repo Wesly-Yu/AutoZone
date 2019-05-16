@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口测试平台</title>py
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function go_delete(id) {
+                $.ajax({
+                    url : "delete_id/",
+                    dataType:'text',
+                    type:'POST',
+                    async:true,
+                    data:{
+                        'path':id
+                    },
+                    success: function (data) {
+                        alert('删除成功');
+                        window.location.reload()
+
+                    },
+                    error:function (data) {
+                        console.log(data);
+                        alert('删除失败')
+                    }
+                })
+        }
+        function go_change(id) {
+           $('#submitBtn2').click(function () {
+                $.ajax({
+                cache:false,
+                url : "product_change_data/",
+                dataType:'text',
+                type:'POST',
+                async:true,
+                data:{
+                    'id':id,
+                    'changemodel': $("#changemodel").val(),
+                    'changeproduct': $("#changeproduct").val(),
+                    'changetester': $("#changetester").val(),
+                    'changedeveloper': $("#changedeveloper").val(),
+                    'changeproductdesc': $("#changeproductdesc").val(),
+                    'changestatus':$("#changestatus").val()
+                },
+                success: function (data) {
+                    alert("提交成功");
+                    window.location.reload();
+                    console.log(data);
+                },
+                error:function (data) {
+                    console.log(data);
+                    alert("数据重复/提交失败");
+                }
+            })
+        })}
+    </script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
+    <div class="container" style="height: 40px">
+        <ul class="nav nav-justified">
+            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
+        </ul>
+        <a class="navbar-brand" href="#" target="mainFrame"></a>
+    </div>
+</nav>
+<form class="navbar-form" method="get" action="//">
+    <div class="form-group" style="margin-left: 30px; padding-top: 60px">
+        <input id="ipt2" name="project_name" type="text" placeholder="项目名" class="form-control">
+        <input  id="ipt3" name="Testers" type="text" placeholder="测试人员" class="form-control">
+        <input id="ipt4" name="Developer" type="text" placeholder="开发人员" class="form-control">
+        <select id="select1" name='select' class="form-control" ><option  value="2"  class="select">状态</option><option value="1" class="select">启动</option><option value="0" class="select">关闭</option>
+        </select>
+        <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white">搜索</button>
+    </div>
+    {% csrf_token %}
+</form>
+<div class="btn-toolbar col-md-3 col-md-3" role="toolbar" style="padding-top: 10px;margin-left: 10px">
+    <div class="btn-group">
+        <button id="btn1" class="btn btn-default" style="background:#53245d;color:white;" data-toggle="modal" data-target="#addMyModal" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加</button>
+            <div class="modal fade" id="addMyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times</button>
+                            <h6 class="modal-title" id="myModalLabel">新增项目</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form" class="form-group" method="POST" action="/product_add_data/" id="add_form">
+                                <label for="model">模块</label>
+                                <input type="text"  name="modelname" class="form-control" id="model" placeholder="模块">
+                                <label for="product">项目</label>
+                                <input type="text" name="productname" class="form-control" id="product" placeholder="项目">
+                                <label for="tester">测试人员</label>
+                                <input type="text" name="tester" class="form-control" id="tester" placeholder="测试人员">
+                                <label for="developer">开发人员</label>
+                                <input type="text" name="developer" class="form-control" id="developer" placeholder="开发人员">
+                                <label>模块描述</label>
+                                <select  role="menu" class="form-control" name="productdesc">
+                                    <option>开发中</option>
+                                    <option>开发完毕</option>
+                                    <option>验收中</option>
+                                </select>
+                                <label>状态</label>
+                                <select class="form-control" name="status">
+                                    <option>开启</option>
+                                    <option>关闭</option>
+                                </select>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-default" id="submitBtn" style="background:#53245d;color:white;">提交</button>
+                                </div>
+                                {% csrf_token %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="container col-md-11 col-md-10">
+    <table class="table table-bordered table-striped  table-hover" id="product_table" style="margin-left: 15px;">
+        <thead>
+        <tr>
+            <th>选中</th>
+            <th>ID</th>
+            <th>模块名</th>
+            <th>项目名</th>
+            <th>测试人员</th>
+            <th>开发人员</th>
+            <th>模块描述</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>编辑</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+        <tr>
+            <td id="che1"><input type="checkbox" name="rowCheck" ></td>
+            <td>{{ product.productid }}</td>
+            <td>{{ product.modelname }}</td>
+            <td>{{ product.productname }}</td>
+            <td>{{ product.tester }}</td>
+            <td>{{ product.developer }}</td>
+            <td>{{ product.productdesc }}</td>
+            <td>{{ product.status }}</td>
+            <td>{{product.create_time}}</td>
+            <td><button class="btn btn-default sm" data-toggle="modal" data-target="#myModal2" type="button">删除</button>
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body"><strong>删除页面</strong></div>
+                            <h6 class="modal-title" id="myModalLabel2" style="color: #53245d; margin-left: 200px;font-size: 15px"><strong>删除后无法撤销，请确认</strong></h6>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="go_delete('{{product.productid}}')" style="background:#53245d;color:white;">删除</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <button class="btn btn-default sm" onclick="go_change('{{product.productid}}')" data-toggle="modal" data-target="#myModal3">编辑</button>
+                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times</button>
+                                <h6 class="modal-title" id="myModalLabel3"><strong>修改项目</strong></h6>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" class="form-group" id="change_form">
+                                    <label for="model">模块</label>
+                                    <input type="text"  name="changemodel_name" class="form-control" id="changemodel" placeholder="模块">
+                                    <label for="product">项目</label>
+                                    <input type="text" name="changeproduct_name" class="form-control" id="changeproduct" placeholder="项目">
+                                    <label for="tester">测试人员</label>
+                                    <input type="text" name="changetester_name" class="form-control" id="changetester" placeholder="测试人员">
+                                    <label for="developer">开发人员</label>
+                                    <input type="text" name="changedeveloper_name" class="form-control" id="changedeveloper" placeholder="开发人员">
+                                    <label>模块描述</label>
+                                    <select  role="menu" class="form-control" name="changeproductdesc_name" id="changeproductdesc">
+                                        <option>开发中</option>
+                                        <option>开发完毕</option>
+                                        <option>验收中</option>
+                                    </select>
+                                    <label>状态</label>
+                                    <select class="form-control" name="status" id="changestatus">
+                                        <option>开启</option>
+                                        <option>关闭</option>
+                                    </select>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button"  class="btn btn-default" id="submitBtn2" style="background:#53245d;color:white;">提交</button>
+                                    </div>
+                                 {% csrf_token %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<nav>
+    <ul class="pager pagination navbar-fixed-bottom">
+        {% if products.has_previous %}
+        <li class="previous"><a href="?page={{products.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
+        {% endif %}
+        {% for num in products.paginator.page_range %}
+        {% if num == currentPage %}
+        <li class="item active"><a href="?page={{ num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% else %}
+        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if products.has_next %}
+        <li class="next"><a href="?page={{products.next_page_number}}"  style="margin-right: 700px">下一页</a></li>
+        {% else %}
+        <li class="next disabled"><a href="#" style="margin-right: 700px">下一页</a></li>
+        {% endif %}
+    </ul>
+</nav>
+</body>
+</html>

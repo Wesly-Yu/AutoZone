@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口测试平台</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+    .nav-sidebar > .active > a{
+        color: #fff;
+        background-color: #53245d;
+    }
+    .nav-sidebar > li > a{
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+    }
+    .nav>li>a{
+        position: relative;
+        display: block;
+        font-size: 17px;
+        padding: 10px 15px;
+    }
+    .navbar .navbar-header .navbar-brand {
+        font-size: 25px;
+        color: #53245d;
+        height: 60px;
+        padding: 15px 15px;
+        margin-left: -200px
+    }
+    .navbar-right  {
+        color: #53245d;
+        ;
+    }
+    .thumbnail {
+
+    }
+    h4 {
+        font-size: 40px;
+        padding-left: 200px;
+        padding-top: 20px;
+    }
+</style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
+    <div class="container" style="height: 40px">
+        <ul class="nav nav-justified">
+            <li class="navbar-link"><a href="#" style="margin-left: 950px">&nbsp{{user}}</a></li>
+            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
+        </ul>
+        <a class="navbar-brand" href="../product_test_speed" target="mainFrame"></a>
+    </div>
+</nav>
+
+<div class="btn-group" style="padding-top: 80px;padding-left: 30px">
+    <button id="btn1" class="btn btn-default" style="background:#53245d;color:white;" data-toggle="modal" data-target="#addMyModal" >
+        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp&nbsp接口测试进度
+    </button>
+    <button id="btn2" class="btn btn-default" style="background:#53245d;color:white;" data-toggle="modal" data-target="#addMyModal" >
+        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp&nbspApp测试进度
+    </button>
+    <button id="btn3" class="btn btn-default" style="background:#53245d;color:white;" data-toggle="modal" data-target="#addMyModal" >
+        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp&nbspWeb测试进度
+    </button>
+</div>
+        <div class="container col-md-10 col-md-9">
+            <table class="table table-bordered table-striped table-hover" style="margin-left: 15px;">
+                <thead>
+                <tr>
+                    <th>选中</th>
+                    <th>ID</th>
+                    <th>项目名</th>
+                    <th>测试人员</th>
+                    <th>测试项</th>
+                    <th>自动化测试用例数</th>
+                    <th>已完成个数</th>
+                    <th>今日完成个数</th>
+                    <th>整体进度</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+                <nav>
+                    <ul class="pager navbar-fixed-bottom">
+                        <li><a href="#">上一页</a></li>
+                        <li><a href="#">下一页</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>

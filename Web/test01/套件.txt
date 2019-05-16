@@ -1,0 +1,27 @@
+*** Settings ***
+Library           Selenium2Library
+*** Test Cases ***
+login
+	open browser	https://www.baidu.com/	chrome
+	sleep	3
+	Selenium2Library.Input Text	id=kw	python
+	Click	${picture_path}/baidu.png
+	close browser
+
+testµÇÂ¼testhome
+	open browser	https://testerhome.com/	chrome
+	sleep	3
+	maximize browser window
+	click	${picture_path}/login.png
+	Selenium2Library.wait until page contains element	id=user_login	5
+	Selenium2Library.Input Text	id=user_login	1633235633@qq.com
+	Selenium2Library.Input Text	id=user_password	yp10086
+	Selenium2Library.click button	name=commit
+	Selenium2Library.wait until page contains element	xpath=//*[@id="main-page"]/div[1]/nav/div/ul[1]/li/a/img
+	close browser
+#test03
+#    open browser    https://www.baidu.com/    chrome
+#    sleep       5
+#    input text       id=kw     python
+#    sleep   3
+#    [teardown]  close browser

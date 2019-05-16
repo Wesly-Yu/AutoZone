@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>接口测试平台</title>py
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
+    <div class="container" style="height: 40px">
+        <ul class="nav nav-justified">
+            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
+        </ul>
+        <a class="navbar-brand" href="#" target="mainFrame"></a>
+    </div>
+</nav>
+<div class="col-sm-offset-5" style="font-size: 20px;color: #53245d;padding-top: 50px">
+    <h5 href="#" style="font-size: 25px">Web测试用例</h5>
+</div>
+<div class="col-md-2 col-sm-offset-1">
+    <table class="table-bordered table-hover" style="margin-left: -150px;margin-top: -65px;width: 150px;height: 600px;overflow: auto">
+        <thead>
+        <tr>
+            <th style="height: 45px;text-align: center">公共变量集合</th>
+            {% for webcase in webcases %}
+                <tr>
+                    <td style="text-align: center">{{ webcase.webcasename}}</td>
+                </tr>
+            {% endfor %}
+        </thead>
+    </table>
+</div>
+<form class="navbar-form" method="get" action="//">
+    <div class="form-group" style="margin-left: -255px; margin-top: 30px">
+        <input id="ipt2" name="project_name" type="text" placeholder="关键字搜索" class="form-control">
+        <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white">搜索</button>
+    </div>
+    {% csrf_token %}
+</form>
+<button class="btn btn-default" style="background:#53245d;margin-left:1400px;margin-top: -75px" ><a class="related-widget-wrapper-link add-related" style="color:white;" id="add_id_Webcase" href="/admin/webtest/webcase/add/" title="增加测试用例" target="_parent"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加</a></button>
+<button class="btn btn-default" style="background:#53245d;margin-left:1260px;color:white;margin-top: -112px"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加到定时任务</button>
+<div class="container" style="width: 1450px">
+    <table id="table" class="table table-striped table-hover"  style="margin-left:45px;margin-top: -30px;table-layout: fixed">
+        <thead>
+        <tr>
+            <th>ID</th><th>所属模块</th><th>用例名称</th><th>步骤描述</th><th>测试结果</th><th>负责人</th><th>备注</th><th>创建时间</th><th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for webcase in webcases %}
+        <tr>
+            <td>{{ webcase.id }}</td>
+            <td>{{ webcase.webcase_models }}</td>
+            <td>{{ webcase.webcasename }}</td>
+            <td>{{ webcase.webcasedesc }}</td>
+            <td>{{ webcase.webtestresult }}</td>
+            <td>{{ webcase.webcase_charger}}</td>
+            <td>{{ webcase.webcomments }}</td>
+            <td>{{ webcase.creat_time }}</td>
+            <td><a class="btn btn-default sm" style="color:black;" id="del_id_Webcase" href="../admin/webtest/webcase/{{ webcase.id }}/delete/" title="删除测试用例" target="_parent">删除</a>
+                <a  href="{% url "webcasestep_manage" %}?webcase.id={{ webcase.id }}" target="mainFrame" class="btn btn-default sm">调试步骤</a>
+                <a class="btn btn-default sm" style="color:black" id="edit_id_Webcase" href="../admin/webtest/webcase/{{ webcase.id }}/change/" title="编辑测试步骤" target="_parent">编辑步骤</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<nav>
+    <ul class="pager pagination navbar-fixed-bottom">
+        {% if webcases.has_previous %}
+        <li class="previous"><a href="?page={{webcases.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
+        {% else %}
+        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
+        {% endif %}
+        {% for num in webcases.paginator.page_range %}
+        {% if num == currentPage %}
+        <li class="item active"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% else %}
+        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if webcases.has_next %}
+        <li class="next"><a href="?page={{webcases.next_page_number}}"  style="margin-right: 800px">下一页</a></li>
+        {% else %}
+        <li class="next disabled"><a href="#" style="margin-right: 800px">下一页</a></li>
+        {% endif %}
+    </ul>
+</nav>
+</body>
+<script>
+//点击立即执行任务列表中的用例
+    $("#addwebcase").click(function(){
+        $.ajax({
+            cache:false,
+            url:"add_web_casename/",
+            type:'POST',
+            dataType:'text',
+            async:false,
+            data:{
+                "webmodelname": $("#addmodel").val(),
+                "webcasename": $("#addcase").val(),
+                "webcharger":$("#addcharger").val(),
+                "webaddcasedesc":$("#addcasedesc").val(),
+            },
+            success: function (data) {
+                alert("提交成功");
+                window.location.reload();
+                console.log(data);
+            },
+            error:function (data) {
+                console.log(data);
+                alert("数据重复/提交失败");
+            }
+        });
+    });
+    function go_delete (id) {
+        $.ajax({
+                cache: false,
+                url: "delete_id/",
+                dataType: 'text',
+                type: 'POST',
+                async: false,
+                data: {
+                    "id":id
+                },
+                success: function (data) {
+                    alert('删除成功');
+                    window.location.reload()
+                },
+                error:function (data) {
+                    console.log(data);
+                    alert('删除失败')
+                }
+            })
+    }
+</script>
+</html>

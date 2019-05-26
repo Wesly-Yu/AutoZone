@@ -51,29 +51,28 @@ ps:背景刚开始看还可以，后面越看越丑，有推荐的嘛？
 ###### 不同的项目添加不同的测试进度，进行展示:<br>
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/jindu.png)
 ###### 接口参数添加页面如下:
-Assert 中可以对多个参数做判断（后续将增加对返回值参数是否存在与数据库中的断言）
-测试报告如下
-
-Web自动化
-web自动化步骤的添加和robotframework的一样，区别是增加了填写的参数位置固定了。步骤添加页面设计来源于Django 自带的admin模板 +suit这个美化过
-
-
-支持关键字蓝色高亮显示
-
-只需将需要点击的图标截图名称填写进步骤里面
-
-图片上传的路径平台已做设定，选择上传就可以了。注：图片识别并点击截图，需要如下的截图才能识别—
-
-
-
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/jiekou.png)
+也可以在Assert 中可以对多个参数做判断（后续将增加对返回值参数是否存在与数据库中的断言）
+###### 测试报告如下
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/report.png)
+###### Web自动化
+web自动化步骤的添加和robotframework的一样，区别是增加了填写的参数位置固定了。步骤添加页面设计来源于Django 自带的admin模板 +suit这个美化过<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/web-ui.png)
+###### 支持关键字蓝色高亮显示
+只需将需要点击的图标截图名称填写进步骤里面(支持定位输入框,页面按键，链接等)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/picture.png)
+图片上传的路径平台已做设定，选择上传就可以了。注：图片识别并点击截图，需要如下的截图才能识别:<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/update.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/baidu.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/denglu.png)
 等，图片背景变换会导致识别不到对应的截图，所以要保持点击的图标背景与截图的一致
-所有测试用例支持运行所选部分和全部，支持定时任务的执行
-
-测试报告暂时用的robotframework的 ，后续将测试报告改的和web的测试报告一致
-
-支持向添加到数据库的邮箱发送测试报告
-
-web支持对应的关键字查询与说明
-
+所有测试用例支持运行所选部分和全部，支持定时任务的执行（与jenkins定时执行构建任务一样）接口与UI自动化可以一起执行，接口和UI需要分别设置<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/time.png)
+###### 测试报告暂时用的robotframework的，UI的报告生成在指定的位置可以在页面中点开查看，接口的结果是通多读取数据库的参数展示的，后续将测试报告改的和web的测试报告一致。
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/report.png)
+###### 支持向添加到数据库的邮箱发送测试报告
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/email.png)
+###### web功能下可查看所有的对应的关键字查询与说明
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/keywords.png)
 测试平台的基本情况 已经讲解完成，后续将讲解相应部分的代码
 我的QQ:1633235633@qq.com，有问题可以联系。后续开发完后将公布github地址，进行开源以便发现更多的问题

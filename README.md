@@ -61,10 +61,10 @@ web自动化步骤的添加和robotframework的一样，区别是增加了填写
 ###### 支持关键字蓝色高亮显示
 只需将需要点击的图标截图名称填写进步骤里面(支持定位输入框,页面按键，链接等)
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/picture.png)
-图片上传的路径平台已做设定，选择上传就可以了。注：图片识别并点击截图，需要如下的截图才能识别:<br>
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/update.png)
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/baidu.png)
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/denglu.png)
+###### 图片上传的路径平台已做设定，选择上传就可以了。注：图片识别并点击截图，需要如下的截图才能识别:<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/baidu.png)<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/denglu.png)<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/update.png)<br>
 等，图片背景变换会导致识别不到对应的截图，所以要保持点击的图标背景与截图的一致
 所有测试用例支持运行所选部分和全部，支持定时任务的执行（与jenkins定时执行构建任务一样）接口与UI自动化可以一起执行，接口和UI需要分别设置<br>
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/time.png)

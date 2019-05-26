@@ -25,7 +25,12 @@ APSscheduler<br>
 等库与插件<br>
 ### 配置运行的环境
 首先安装python3.6版本或者3.7版本（有以前的安装库的尽量卸载，避免安装包版本的冲突，如果冲突了卸载了再安装很费时间，亲测这些坑），<br>然后找到目录下的requirements.txt文件，按住shift +右键点击在此处打开Power shell窗口<br>, 然后输入pip install -r requirement.txt,等待安装完毕，
-安装mysql数据库文件，
+安装mysql数据库（我的版本为5.7），<br>
+导入关键字说明文件autotest.sql，在数据中新建一个连接，
+新建的连接名称与账户密码都应该与Django settings文件中的此处一样：https://github.com/Wesly-Yu/AutoZone/blob/master/images/20190526221134.png<br>
+你需要设置你的各种参数，不一定要与我的一样！！！，我是通过navicat连接，你也可以选择别的工具<br>
+新建数据库命名为autotest,然后导入目录下的autotest.sql这个文件，navicat导入数据库文件，不会的同学请百度<br>
+至此环境配置已经完成。
 ### 如何运行
 下载完整的工程文件后，pycharm中打开
 运行(也可以用pycharm的快捷键ctrl+alt +R)<br>

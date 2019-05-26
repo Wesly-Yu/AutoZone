@@ -11,42 +11,46 @@
 ### 什么是AutoZone测试平台
 ### AutoZone开源平台是一个开源自动化测试解决方案，基于RobotFramework进行二次开发，支持RobotFramework几乎所有的库。并能够实现图像识别查找GUI等功能。
 采用了哪些开源技术/框架
-python3<br>
-Django<br>
-Bootstrap3<br>
-requests<br>
-pymysql<br>
-pyautoGUI<br>
-Pyhook<br>
-robotframework<br>
-Selenium2library<br>
-SikuliLIbrary<br>
-APSscheduler<br>
+* python3<br>
+* Django<br>
+* Bootstrap3<br>
+* requests<br>
+* pymysql<br>
+* pyautoGUI<br>
+* Pyhook<br>
+* robotframework<br>
+* Selenium2library<br>
+* SikuliLIbrary<br>
+* APSscheduler<br>
+* openCV<br>
 等库与插件<br>
 ### 配置运行的环境
 首先安装python3.6版本或者3.7版本（有以前的安装库的尽量卸载，避免安装包版本的冲突，如果冲突了卸载了再安装很费时间，亲测这些坑），<br>然后找到目录下的requirements.txt文件，按住shift +右键点击在此处打开Power shell窗口<br>, 然后输入pip install -r requirement.txt,等待安装完毕，
 安装mysql数据库（我的版本为5.7），<br>
 导入关键字说明文件autotest.sql，在数据中新建一个连接，
-新建的连接名称与账户密码都应该与Django settings文件中的此处一样：https://github.com/Wesly-Yu/AutoZone/blob/master/images/20190526221134.png<br>
+新建的连接名称与账户密码都应该与Django settings文件中的此处一样：![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/20190526221134.png)<br>
 你需要设置你的各种参数，不一定要与我的一样！！！，我是通过navicat连接，你也可以选择别的工具<br>
 新建数据库命名为autotest,然后导入目录下的autotest.sql这个文件，navicat导入数据库文件，不会的同学请百度<br>
 至此环境配置已经完成。
 ### 如何运行
 下载完整的工程文件后，pycharm中打开
 运行(也可以用pycharm的快捷键ctrl+alt +R)<br>
-python manage.py runserver 指定希望运行的端口
-然后在网页上输入网址比如127.0.0.1:9000/login/
-登陆后页面显示如下:<br>
-
+python manage.py runserver 指定希望运行的端口,也可以在在pycharm中设定端口号(8080有时候会被占用)![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/20190526222403.png)<br>
+在下方的命令行中输入createsuperuser,下方自带提示功能的![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/2.png)<br>
+创建后才能登陆，使用功能，否则会报错！<br>
+然后在网页上输入网址比如127.0.0.1:9000/admin/,然后输入你 createsuperuser中设置的账户和密码,如果忘记了再次设置新的即可<br>
+登陆Django自带的admin页面后显示如下:![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/3.png),在箭头所指示的地方添加平台的使用用户<br>
+在页面中输入http://127.0.0.1:8000/login/ 后登陆页面如下![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/login.png)
 ps:背景刚开始看还可以，后面越看越丑，有推荐的嘛？
 创建登录的账号和密码：
-pycharm Tools>Run manage.py Task ;或者直接快捷键ctrl +alt+Ｒ，然后在输入createsuperuser,创建admin,然后按照提示输入账户和密码
-登陆后页面展示如下>
-一些截图
-
-
-
-接口参数添加页面如下
+###### 登陆后页面展示如下一些功能:
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/tools.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/shouye.png)<br>
+###### 可以根据不同的项目新建用例作为关联管理：<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/xiangmu.png)
+###### 不同的项目添加不同的测试进度，进行展示:<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/jindu.png)
+###### 接口参数添加页面如下:
 Assert 中可以对多个参数做判断（后续将增加对返回值参数是否存在与数据库中的断言）
 测试报告如下
 

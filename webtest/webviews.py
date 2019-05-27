@@ -88,12 +88,10 @@ def upload_file(request):
     path = os.path.abspath(os.path.dirname(__file__))
     media_path = path+"\\"+"media"
     media_name_list = os.listdir(media_path)
-    print(media_name_list)
     # 请求方法为POST时，进行处理
     if request.method == "POST":
         # 获取上传的文件，如果没有文件，则默认为None
         File = request.FILES.get("myfile", None)
-        print(File)
         if File is None:
             return HttpResponse("没有需要上传的文件")
         else:
@@ -101,7 +99,6 @@ def upload_file(request):
             with open("./webtest/media/%s" % File.name, 'wb+') as f:
                     for chunk in  File.chunks(): #分块写入文件
                         if str(File) in media_name_list:
-                            print("111111")
                             return HttpResponse("截图文件:"+File.name+"已存在请查看")
                         else:
                             f.write(chunk)

@@ -3,17 +3,17 @@ import os
 import re
 
 
-def a():
-    taskcasesuit = "test.txt"
-    path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
-    project_path = os.path.join(path, taskcasesuit)  # 加入完整的目录和文件名称
-    regx = "login"
-    with open(project_path,'r+') as txtfile:
-        p = re.compile(regx)
-        lines = txtfile.readlines()[1:]
-        lineb = [line for line in lines if p.search(line) is None]
-        txtfile.truncate(0)
-        txtfile.writelines(lineb)
+# def a():
+#     taskcasesuit = "test.txt"
+#     path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
+#     project_path = os.path.join(path, taskcasesuit)  # 加入完整的目录和文件名称
+#     regx = "login"
+#     with open(project_path,'r+') as txtfile:
+#         p = re.compile(regx)
+#         lines = txtfile.readlines()[1:]
+#         lineb = [line for line in lines if p.search(line) is None]
+#         txtfile.truncate(0)
+#         txtfile.writelines(lineb)
 # taskcasesuit = "test.txt"
 # path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
 # project_path = os.path.join(path, taskcasesuit)  # 加入完整的目录和文件名称
@@ -26,7 +26,13 @@ def a():
 #         data = data + data1
 #         print(data)
 
-
-if __name__ == '__main__':
-    a()
-
+#
+# if __name__ == '__main__':
+#     a()
+#
+list = ['baidu.png', 'chrome.png', 'denglu.png', 'login.png', 'shuru.png', 'tools.png', 'update.png', '__init__.py']
+a=baidu.png
+if a in list:
+    print("已存在")
+else:
+    print("不存在")

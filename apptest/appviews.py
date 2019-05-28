@@ -85,6 +85,9 @@ def delete_app_casesteps(request):
 #上传图片
 @login_required
 def upload_file(request):
+    path = os.path.abspath(os.path.dirname(__file__))
+    media_path = path+"\\"+"media"
+    media_name_list = os.listdir(media_path)
     # 请求方法为POST时，进行处理
     if request.method == "POST":
         # 获取上传的文件，如果没有文件，则默认为None
@@ -97,8 +100,11 @@ def upload_file(request):
             with open("./apptest/media/%s" % File.name, 'wb+') as f:
                 #分块写入文件
                 for chunk in  File.chunks():
-                    f.write(chunk)
-            return HttpResponse("UPload over!")
+                    if str(File) in media_name_list:
+                        return HttpResponse("截图文件:" + File.name + "已存在请查看")
+                    else:
+                        f.write(chunk)
+                        return HttpResponse("UPload over!")
     else:
         return  render(request, "test.html")
 

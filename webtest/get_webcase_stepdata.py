@@ -60,35 +60,38 @@ def test_webcase_step(upperlevel_id,case_list,case_count):
             webkwargestwo = case[3]
             webkwargesthree = case[4]
             webkwargesfour = case[6]
-            webassertdata = case[7]
-        except Exception as e:
-            return '测试用例格式不正确！！%s'%e
-    time.sleep(1)
-    path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
-    project_path = os.path.join(path, robotcasename)  # 加入完整的目录和文件名称
-    txtfile = open(project_path, "a")
-    try:
-        if webkwargesone =="":
-            txtfile.write("\t"+webfindmethod+"\n")
-        elif webkwargestwo =="":
-            txtfile.write("\t"+webfindmethod+"\t"+webkwargesone+"\n")
-        elif webkwargesthree =="":
-            txtfile.write("\t"+webfindmethod+"\t"+webkwargesone+"\t"+webkwargestwo+"\n")
-        elif webkwargesfour =="":
-            txtfile.write("\t"+webfindmethod+"\t"+webkwargesone+"\t"+webkwargestwo+"\t"+webkwargesthree+"\n")
-        else:
-            txtfile.write("\t"+webfindmethod+"\t"+webkwargesone+"\t"+webkwargestwo+"\t"+webkwargesthree+"\t"+webkwargesfour+"\n")
-    except Exception as e:
-        print("Failed,please retry.....")
-    txtfile.close()
-    print("over")
-    if case_count == step_counts:
-        print(case_count)
-        time.sleep(2)
-        run_in_terminal(upperlevel_id)
-        print("正在运行脚本")
-    else:
-        print("数据正在写入中")
+            # webassertdata = case[7]
+            time.sleep(1)
+            path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
+            project_path = os.path.join(path, robotcasename)  # 加入完整的目录和文件名称
+            txtfile = open(project_path, "a")
+            try:
+                if webkwargesone == "":
+                    txtfile.write("\t" + webfindmethod + "\n")
+                elif webkwargestwo == "":
+                    txtfile.write("\t" + webfindmethod + "\t" + webkwargesone + "\n")
+                elif webkwargesthree == "":
+                    txtfile.write("\t" + webfindmethod + "\t" + webkwargesone + "\t" + webkwargestwo + "\n")
+                elif webkwargesfour == "":
+                    txtfile.write(
+                        "\t" + webfindmethod + "\t" + webkwargesone + "\t" + webkwargestwo + "\t" + webkwargesthree + "\n")
+                else:
+                    txtfile.write(
+                        "\t" + webfindmethod + "\t" + webkwargesone + "\t" + webkwargestwo + "\t" + webkwargesthree + "\t" + webkwargesfour + "\n")
+            except Exception as e:
+                print("Failed,please retry.....")
+            txtfile.close()
+            print("over")
+            if case_count == step_counts:
+                print(case_count)
+                time.sleep(2)
+                run_in_terminal(upperlevel_id)
+                print("正在运行脚本")
+            else:
+                print("数据正在写入中")
+        except  Exception as e:
+            print("出错了")
+
 
 
 #写入用例的名称和变量、调用的第三方库
@@ -137,7 +140,8 @@ def  run_in_terminal(upperlevel_id):
     pyautogui.keyDown('alt')
     pyautogui.press('f12')
     pyautogui.keyUp('alt')
-    time.sleep(3)
+
+cd webtest    time.sleep(3)
     k.type_string('cd webtest')
     time.sleep(1)
     pyautogui.press('enter')

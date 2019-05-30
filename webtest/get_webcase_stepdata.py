@@ -140,8 +140,7 @@ def  run_in_terminal(upperlevel_id):
     pyautogui.keyDown('alt')
     pyautogui.press('f12')
     pyautogui.keyUp('alt')
-
-cd webtest    time.sleep(3)
+    time.sleep(3)
     k.type_string('cd webtest')
     time.sleep(1)
     pyautogui.press('enter')

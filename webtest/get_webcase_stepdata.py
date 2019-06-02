@@ -7,6 +7,9 @@ import pymysql
 from pykeyboard import PyKeyboard
 import pyautogui
 PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
+path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
+from webtest.set_langurage import switch_langrage
+
 
 
 def readwebcaseSQL(upperlevel_id):
@@ -100,12 +103,13 @@ def write_to_txt(upperlevel_id):
     robotcasename = "test00"+number+".txt"
     path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
     project_path = os.path.join(path, robotcasename)  # 加入完整的目录和文件名称
+    mediapath = path + "\\" + "media"
     content1 = "*** Settings ***\n"
     content7 = "Library           Selenium2Library\n"
     content5 = "Library           SikuliLibrary\n"
     content8 = "Test Teardown       Close Browser\n"
     content3 = "*** Variables ***\n"
-    content6 = "${picture_path}    F:/AutoZone/AutoZone/webtest/media\n"
+    content6 = "${picture_path}"+"    "+mediapath+"\n"
     content4 = "*** Test Cases ***\n"
     txtfile = open(project_path, "a")
     txtfile.writelines([content1,"\r",content7,"\r",content5,"\r",content8,"\r",content3,"\r",content6,"\r", content4,"\r", "test00"+number, "\r"])
@@ -141,6 +145,7 @@ def  run_in_terminal(upperlevel_id):
     pyautogui.press('f12')
     pyautogui.keyUp('alt')
     time.sleep(3)
+    switch_langrage()
     k.type_string('cd webtest')
     time.sleep(1)
     pyautogui.press('enter')

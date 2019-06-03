@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>自动化测试平台V1.0</title>
+    <link rel="stylesheet" href="{% static 'CSS/htmleaf-demo.css' %}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'CSS/htmleaf-demo.css' %}">
-    <![endif]-->
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+
  <style type="text/css">
 
 .form-horizontal{
@@ -19,6 +21,7 @@
     padding-bottom: 40px;
     border-radius: 15px;
     text-align: center;
+
 }
 .form-bg{
     background : #1d7db1;
@@ -79,10 +82,10 @@
     color: #000;
 }
 .form-horizontal .fa-user{
-    margin-left: 80px;
+    margin-left: 60px;
 }
 .form-horizontal .fa-lock:before{
-    margin-left: 80px;
+    margin-left: 60px;
 
 }
 .form-horizontal .main-checkbox{
@@ -161,13 +164,9 @@
         padding: 10px 20px;
     }
 }
-
  </style>
   </head>
-  <body>
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+  <body >
     <div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
@@ -200,7 +199,16 @@
     </div>
     </div>
   </body>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script  src="{% static 'JS/index.js' %}"></script>
 </html>
+
+
+
+
+
+{#<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>#}
 
 
 

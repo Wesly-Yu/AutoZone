@@ -103,16 +103,19 @@ def write_to_txt(upperlevel_id):
     robotcasename = "test00"+number+".txt"
     path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
     project_path = os.path.join(path, robotcasename)  # 加入完整的目录和文件名称
-    mediapath = path + "\\" + "media"
     content1 = "*** Settings ***\n"
     content7 = "Library           Selenium2Library\n"
     content5 = "Library           SikuliLibrary\n"
+    content2 = "Test Setup        Add Needed Image Path"
     content8 = "Test Teardown       Close Browser\n"
     content3 = "*** Variables ***\n"
-    content6 = "${picture_path}"+"    "+mediapath+"\n"
+    content6 = "${picture_path}"    +"${CURDIR}\\media\n"
+    content9 ="*** Keywords ***"
+    content10 ="Add Needed Image Path"
+    content11="\t + Add Image Path    ${picture_path} + \n"
     content4 = "*** Test Cases ***\n"
     txtfile = open(project_path, "a")
-    txtfile.writelines([content1,"\r",content7,"\r",content5,"\r",content8,"\r",content3,"\r",content6,"\r", content4,"\r", "test00"+number, "\r"])
+    txtfile.writelines([content1,"\r",content7,"\r",content5,"\r",content2,"\r",content8,"\r",content3,"\r",content6,"\r",content9,"\r",content10,"\r",content11,"\r",content4,"\r", "test00"+number, "\r"])
     time.sleep(3)
     txtfile.close()
     print("主体写入完成")

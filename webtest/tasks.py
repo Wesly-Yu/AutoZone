@@ -51,7 +51,7 @@ def get_webtask_times(singel_task_date):
 def get_task_stepdata():
     sqlSentence = "SELECT webtestlocation,webfindmethod,webkwargesone,webkwargestwo,webkwargesthree,webkwargesfour,b.task_casename,b.case_id FROM webtest_webcasestep AS a LEFT JOIN webtest_webtest_task AS b ON a.Webcase_id=b.case_id;"
     coon = pymysql.connect(user='root', password='test123456', db='autotest', port=3306, host='127.0.0.1',
-                           charset='utf-8')
+                           charset='utf8')
     cursor = coon.cursor()
     webcasestepcheck = cursor.execute(sqlSentence)  # 读取页面上的执行步骤
     get_selectresult = cursor.fetchmany(webcasestepcheck)  # 获取所有的查询结果
@@ -71,7 +71,7 @@ def get_task_stepdata():
 def readSQLCounts():
     sql2 = "SELECT count(*) FROM webtest_webcasestep AS a LEFT JOIN webtest_webtest_task AS b ON a.Webcase_id=b.case_id;"
     coon = pymysql.connect(user='root', password='test123456', db='autotest', port=3306, host='127.0.0.1',
-                           charset='utf-8')
+                           charset='utf8')
     cursor = coon.cursor()
     get_counts = cursor.execute(sql2)                                   # 读取页面上的执行步骤数量
     get_countsnumber = cursor.fetchmany(get_counts)                     # 获取所有的查询结果数量
@@ -85,7 +85,7 @@ def readSQLCounts():
 def getcasename_from_SQL():
     sql2 = "SELECT task_casename FROM  webtest_webtest_task;"
     coon = pymysql.connect(user='root', password='test123456', db='autotest', port=3306, host='127.0.0.1',
-                           charset='utf-8')
+                           charset='utf8')
     cursor = coon.cursor()
     get_counts = cursor.execute(sql2)
     get_casename = cursor.fetchmany(get_counts)

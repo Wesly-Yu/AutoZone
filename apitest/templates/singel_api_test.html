@@ -221,7 +221,7 @@
                                             <label for="changecheckstatus" >Assert-status-code</label>
                                             <ul id="changecheckstatus" style="list-style-type: none" >
                                                  <li>
-                                                    <input   type="text" class="change_statuscode" name="change_checkdatas_key" placeholder="Key"  /><input   type="text" name="change_checkstatuscode_value" class="change_status" placeholder="Value"/>
+                                                    <input   type="text" class="change_statuscode" name="change_statuscode_key" placeholder="Key"  /><input   type="text" name="change_statuscode_value" class="change_status" placeholder="Value"/>
                                                     <input id="change_addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
                                                     <input id="change_delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
                                                     <input id="changemergestatuscode" type="text" style="display:None" name="changemergestatuscode"/>
@@ -371,6 +371,7 @@
             }
             objfivestring = JSON.stringify(objfive);
             $("#addmergestatuscode").val(objfivestring);
+    });
     $('#addsubmitBtn').click(function go_add (id) {
         $.ajax({
             cache:false,
@@ -451,7 +452,7 @@
     //修改项中增加验证状态码
     $(function () {
         $("#change_addstatuscode").click(function () {
-            $("#changechangecheckstatus").append("<li><input   type=\"text\" name=\"checkdatas_key\" placeholder=\"Key\"  /><input   type=\"text\" name=\"checkdatas_value\" placeholder=\"Value\" /></li>");
+            $("#changecheckstatus").append("<li><input   type=\"text\" name=\"checkdatas_key\" placeholder=\"Key\"  /><input   type=\"text\" name=\"checkdatas_value\" placeholder=\"Value\" /></li>");
         });
         $("#change_delstatuscode").click(function () {
             if ($("#changecheckstatus li").length > 1) {
@@ -493,6 +494,16 @@
         }
         objectfourstring = JSON.stringify(objectfour);
         $("#changemergecheckdatas").val(objectfourstring);
+        var objectfive={};
+        var r=document.querySelectorAll("input[name='change_statuscode_key']");
+        var k=document.querySelectorAll("input[name='change_statuscode_value']");
+        for(var g=0;g<r.length;g++){
+            var keyfive = r[g].value;
+            var valuefive = k[g].value;
+            objectfive[keyfive]=valuefive;
+        }
+        objectfivestring = JSON.stringify(objectfive);
+        $("#changemergestatuscode").val(objectfivestring);
     });
     function go_change(id) {
         $("#changesubmitBtn2").click(function (){
@@ -511,6 +522,7 @@
                     "change_mergeheaders": $("#changemergeheaders").val(),
                     "change_mergeformdatas": $("#changemergeformdatas").val(),
                     "change_mergecheckdatas": $("#changemergecheckdatas").val(),
+                    "changemergestatuscode": $("#changemergestatuscode").val(),
                     "change_charger": $("#changecharger").val(),
                 },
                 success: function (data) {

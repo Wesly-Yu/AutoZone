@@ -237,11 +237,12 @@ def change_process_api_test(request):
         newprocessMergeform_data = json.loads(request.POST.get("change_mergeformdatas", ))
         newprocessMergedepend_data = json.loads(request.POST.get("change_mergedependdatas", ))
         newprocessMergecheck_data = json.loads(request.POST.get("change_mergecheckdatas", ))
+        newprocessMergestatuscode_data =json.loads(request.POST.get("changemergestatuscode"))
         newprocessCharger_data = request.POST.get("change_charger", )
         need_data_Apis.objects.filter(productid=id).update(modelname=newprocessModelname_data, depend_Apiname=newprocessCasename_data, Apiurl_data=newprocessUrl_data, process_name=newprocessname,
                                    Apiheader=newprocessMergeheaders_data, Apimethod=newprocessMethod_data,
                                     Apiformdata=newprocessMergeform_data,
-                                   Apiexpectresult=newprocessMergecheck_data, Apischarger=newprocessCharger_data, Apidependdata=newprocessMergedepend_data)
+                                   Apiexpectresult=newprocessMergecheck_data, Apischarger=newprocessCharger_data, Apidependdata=newprocessMergedepend_data,Apistatuscode=newprocessMergestatuscode_data)
     return render(request, "with_data_depend_api.html", {"user": username, "steps": steps})
 
 

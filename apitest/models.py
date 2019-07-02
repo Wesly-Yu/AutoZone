@@ -43,6 +43,7 @@ class singel_Apis(models.Model):
     Apiformdata = models.CharField('表单参数', max_length=800)
     Apimethod = models.CharField('请求方式', max_length=20, default='GET')
     Apiexpectresult = models.CharField('预期结果', max_length=200)
+    Apistatuscode = models.IntegerField('状态码')
     Apischarger = models.CharField('负责人', max_length=50)
     create_time = models.DateTimeField('创建时间', auto_now=True,null=True)
     def __str__(self):

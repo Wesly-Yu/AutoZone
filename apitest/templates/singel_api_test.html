@@ -93,6 +93,17 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="form-group" id="addcheckstatucode">
+                        <label for="checkstatus" >Assert-status-code</label>
+                        <ul id="checkstatus" style="list-style-type: none" >
+                            <li>
+                                <input   type="text" class="addstatuscode" name="checkdatas_key" placeholder="Key"  /><input   type="text" name="checkstatuscode_value" class="addstatus" placeholder="Value"/>
+                                <input id="addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                <input id="delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                <input id="addmergestatuscode" type="text" style="display:None" name="addmergestatuscode"/>
+                            </li>
+                        </ul>
+                    </div>
                     <label for="charger">负责人</label>
                     <input type="text" name="charger" class="form-control" id="charger" placeholder="负责人">
                     <div class="modal-footer">
@@ -133,7 +144,7 @@
             <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apimethod}}</td>
             <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apiheader}}</td>
             <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apiformdata}}</td>
-            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apiexpectresult}}</td>
+            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apiexpectresult}}/{{ step.Apistatuscode}}</td>
             <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{step.Apischarger}}</td>
             <td>{{step.create_time}}</td>
             <td><button class="btn btn-default sm" data-toggle="modal"  data-target="#myModal2" type="button">删除</button>
@@ -293,6 +304,17 @@
         $("#delcheckdata").click(function () {
             if ($("#checkdatas li").length > 1) {
                 $("#checkdatas li:last").remove();
+            }
+        });
+    });
+    //增加验证状态码
+    $(function () {
+        $("#addstatuscode").click(function () {
+            $("#checkstatus").append("<li><input   type=\"text\" name=\"checkdatas_key\" placeholder=\"Key\"  /><input   type=\"text\" name=\"checkdatas_value\" placeholder=\"Value\" /></li>");
+        });
+        $("#delstatuscode").click(function () {
+            if ($("#checkstatus li").length > 1) {
+                $("#checkstatus li:last").remove();
             }
         });
     });

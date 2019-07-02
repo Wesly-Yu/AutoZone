@@ -97,7 +97,7 @@
                         <label for="checkstatus" >Assert-status-code</label>
                         <ul id="checkstatus" style="list-style-type: none" >
                             <li>
-                                <input   type="text" class="addstatuscode" name="checkdatas_key" placeholder="Key"  /><input   type="text" name="checkstatuscode_value" class="addstatus" placeholder="Value"/>
+                                <input   type="text" class="addstatuscode" name="checkstaus_key" placeholder="Key"  /><input   type="text" name="checkstatus_value" class="addstatus" placeholder="Value"/>
                                 <input id="addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
                                 <input id="delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
                                 <input id="addmergestatuscode" type="text" style="display:None" name="addmergestatuscode"/>
@@ -214,6 +214,17 @@
                                                     <input id="change_addcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
                                                     <input id="change_delcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
                                                     <input id="changemergecheckdatas" type="text" style="display:None" name="changemergecheckdatas"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group" id="changecheckstatucode">
+                                            <label for="changecheckstatus" >Assert-status-code</label>
+                                            <ul id="changecheckstatus" style="list-style-type: none" >
+                                                 <li>
+                                                    <input   type="text" class="change_statuscode" name="change_checkdatas_key" placeholder="Key"  /><input   type="text" name="change_checkstatuscode_value" class="change_status" placeholder="Value"/>
+                                                    <input id="change_addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                                    <input id="change_delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                                    <input id="changemergestatuscode" type="text" style="display:None" name="changemergestatuscode"/>
                                                 </li>
                                             </ul>
                                         </div>
@@ -350,7 +361,16 @@
             }
             objfourstring = JSON.stringify(objfour);
             $("#addmergecheckdatas").val(objfourstring);
-    });
+            var objfive={};
+            var u=document.querySelectorAll("input[name='checkstaus_key']");
+            var v=document.querySelectorAll("input[name='checkstaus_value']");
+            for(var m=0;m<u.length;m++){
+                var keyfive = u[m].value;
+                var valuefive = v[m].value;
+                objfive[keyfive]=valuefive;
+            }
+            objfivestring = JSON.stringify(objfive);
+            $("#addmergestatuscode").val(objfivestring);
     $('#addsubmitBtn').click(function go_add (id) {
         $.ajax({
             cache:false,
@@ -366,6 +386,7 @@
                 "addmergeheaders":$("#addmergeheaders").val(),
                 "addmergeformdatas":$("#addmergeformdatas").val(),
                 "addmergecheckdatas":$("#addmergecheckdatas").val(),
+                "addmergestatuscode":$("#addmergestatuscode").val(),
                 "charger":$("#charger").val(),
             },
             success: function (data) {
@@ -426,6 +447,17 @@
     $("#change_delcheckdata").click(function () {
         if ($("#changecheckdatas li").length > 1) {
             $("#changecheckdatas li:last").remove();}
+    });
+    //修改项中增加验证状态码
+    $(function () {
+        $("#change_addstatuscode").click(function () {
+            $("#changechangecheckstatus").append("<li><input   type=\"text\" name=\"checkdatas_key\" placeholder=\"Key\"  /><input   type=\"text\" name=\"checkdatas_value\" placeholder=\"Value\" /></li>");
+        });
+        $("#change_delstatuscode").click(function () {
+            if ($("#changecheckstatus li").length > 1) {
+                $("#changecheckstatus li:last").remove();
+            }
+        });
     });
 
     //提交修改的数据

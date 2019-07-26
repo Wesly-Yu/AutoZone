@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'webtest',
     'bootstrap3',
-    "apptest",
-
 ]
 
 MIDDLEWARE = [

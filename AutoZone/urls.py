@@ -19,7 +19,6 @@ from django.contrib import admin
 from django.urls import include, path,re_path
 from apitest import views
 from  webtest import webviews
-from apptest import appviews
 from  AutoZone import settings
 from django.conf.urls.static import static
 from django.views.static import serve
@@ -80,20 +79,6 @@ urlpatterns = [
     path('add_email_recevier/',webviews.add_email_recevier),
     path('add_email_sendermessage/',webviews.add_email_sender),
     path('email_add_page/',webviews.display_email),
-    path('appcasestep_manage/fast_test/', appviews.maoyan_test),
-    path('appcasestep_manage/save_test/', appviews.remove_test_txt),
-    path('appcase_periodic_task/', appviews.appUI_periodic_task),
-    path('appcase_periodic_task/addapptask_data/', appviews.add_task_appcase_test),
-    path('appcase_periodic_task/start_immediately_task/', appviews.run_appcase_immediately),
-    path('appcase_periodic_task/start_time_task/', appviews.get_appcase_task_time),
-    path('App_test_robotframework/add_app_casename/', appviews.add_app_casename),
-    path('App_test_robotframework/', appviews.app_testcase_page),
-    path('App_test_robotframework/delete_id/', appviews.del_app_casename),
-    path('appcasestep_manage/', appviews.display_app_casesteps, name='appcasestep_manage'),
-    path('appcase_periodic_task/',appviews.appUI_periodic_task),
-
-
-
 
 ]
 # +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

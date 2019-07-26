@@ -10,11 +10,112 @@
     <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
-    /*.table{*/
-        /*text-overflow: ellipsis;*/
-        /*overflow: hidden;*/
-        /*!*white-space: nowrap;*!*/
-    /*}*/
+body, ul {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+}
+
+/*最外层*/
+.wrap {
+	width: 500px;
+	height: 360px;
+	margin: 20px auto;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	padding: 0 8px;
+}
+
+.wrap-head {
+	width: 100%;
+	height: 24px;
+	overflow: hidden;
+}
+
+.head-logo {
+	width: 40%;
+	float: left;
+}
+
+.head-logo img {
+	width: 30px;
+	height: 30px;
+}
+
+.head-txt {
+	padding: 4px 0;
+	width: 60%;
+	float: right;
+}
+
+.head-txt a{
+	font-size: 12px;
+	color: #eb7350;
+	text-decoration: none;
+    margin-bottom: 5px;
+}
+
+/*内层设计，输入框*/
+.main-txt {
+	border: 1px solid #ccc;
+	width: 100%;
+	height: 320px;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15) inset;
+    float: none;
+}
+
+.main-txt textarea.main-area{
+	border: none;
+	width: 100%;
+	height: 280px;
+	outline: none;
+	resize: none;
+	color: #333;
+    padding: 5px;
+}
+.main-txt.outline {
+	outline: 2px orange solid;
+}
+
+.warp-icon-cont ul li {
+	display: inline-block;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+.warp-icon-cont a {
+	font-size: 12px;
+	color: #333;
+	text-decoration: none;
+	height: 20px;
+	margin-left: 5px;
+	display: block;
+	width: 25px;
+	float: right;
+	line-height: 20px;
+}
+
+.warp-icon-cont a:hover {
+	color: #eb7350;
+}
+
+.warp-icon-cont img {
+	width: 20px;
+	height: 20px;
+}
+
+.release-btn a {
+	display: block;
+	color: #fff;
+	width: 80px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 15px;
+}
 </style>
 </head>
 <body>
@@ -71,46 +172,68 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="form-group" id="addformdatadiv">
-                        <label for="formdatas" >Body</label>
-                        <ul id="formdatas" style="list-style-type: none" >
-                            <li>
-                                <input   type="text" class="addformdata" maxlength="300" name="formdatas_key" placeholder="Key"  /><input   type="text" class="addformdata" name="formdatas_value" placeholder="Value" />
-                                <input id="addformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
-                                <input id="delformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
-                                <input id="addmergeformdatas" type="text" style="display:None" maxlength="500" name="addmergeformdatas"/>
-                            </li>
-                        </ul>
+                <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Body-formdata</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Body-raw</a></li>
+                  </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="form-group" id="addformdatadiv">
+                                <label for="formdatas" >Body</label>
+                                <ul id="formdatas" style="list-style-type: none" >
+                                    <li>
+                                        <input   type="text" class="addformdata" maxlength="300" name="formdatas_key" placeholder="Key"  /><input   type="text" class="addformdata" name="formdatas_value" placeholder="Value" />
+                                        <input id="addformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                        <input id="delformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                        <input id="addmergeformdatas" type="text" style="display:None" maxlength="500" name="addmergeformdatas"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            <div class="wrap">
+                                <div class="wrap-head">
+                                    <div class="head-logo"></div>
+                                    <div class="head-txt">
+                                        <a class="title-txt" href="javascript:void(0)">输入body参数</a>
+                                    </div>
+                                </div>
+                                <div class="main-txt">
+                                    <textarea name="" rows="" cols="" class="main-area"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="addcheckdatadiv">
+                            <label for="checkdatas" >Assert</label>
+                            <ul id="checkdatas" style="list-style-type: none" >
+                                <li>
+                                    <input   type="text" class="addformdata" name="checkdatas_key" placeholder="Key"  /><input   type="text" name="checkdatas_value" class="addformdata" placeholder="Value"/>
+                                    <input id="addcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                    <input id="delcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                    <input id="addmergecheckdatas" type="text" style="display:None" name="addmergecheckdatas"/>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group" id="addcheckstatucode">
+                            <label for="checkstatus" >Assert-status-code</label>
+                            <ul id="checkstatus" style="list-style-type: none" >
+                                <li>
+                                    <input   type="text" class="addstatuscode" name="checkstaus_key" placeholder="Key"  /><input   type="text" name="checkstatus_value" class="addstatus" placeholder="Value"/>
+                                    <input id="addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                    <input id="delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                    <input id="addmergestatuscode" type="text" style="display:None" name="addmergestatuscode"/>
+                                </li>
+                            </ul>
+                        </div>
+                        <label for="charger">负责人</label>
+                        <input type="text" name="charger" class="form-control" id="charger" placeholder="负责人">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-default" data-dismiss="modal" id="addsubmitBtn" style="background:#53245d;color:white;">提交</button>
+                        </div>
+                        {% csrf_token %}
                     </div>
-                    <div class="form-group" id="addcheckdatadiv">
-                        <label for="checkdatas" >Assert</label>
-                        <ul id="checkdatas" style="list-style-type: none" >
-                            <li>
-                                <input   type="text" class="addformdata" name="checkdatas_key" placeholder="Key"  /><input   type="text" name="checkdatas_value" class="addformdata" placeholder="Value"/>
-                                <input id="addcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
-                                <input id="delcheckdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
-                                <input id="addmergecheckdatas" type="text" style="display:None" name="addmergecheckdatas"/>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="form-group" id="addcheckstatucode">
-                        <label for="checkstatus" >Assert-status-code</label>
-                        <ul id="checkstatus" style="list-style-type: none" >
-                            <li>
-                                <input   type="text" class="addstatuscode" name="checkstaus_key" placeholder="Key"  /><input   type="text" name="checkstatus_value" class="addstatus" placeholder="Value"/>
-                                <input id="addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
-                                <input id="delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
-                                <input id="addmergestatuscode" type="text" style="display:None" name="addmergestatuscode"/>
-                            </li>
-                        </ul>
-                    </div>
-                    <label for="charger">负责人</label>
-                    <input type="text" name="charger" class="form-control" id="charger" placeholder="负责人">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-default" data-dismiss="modal" id="addsubmitBtn" style="background:#53245d;color:white;">提交</button>
-                    </div>
-                    {% csrf_token %}
                 </form>
             </div>
         </div>
@@ -535,15 +658,80 @@
             });
         });
     }
+//列表数据一旦超过30个字符串就只显示，25个字符串+...
+function display(){
+    var elements=$("#table").find("td");
+        //当鼠标在列表上悬停时，出现内容
+        $("#td").mouseover(function(){
+            $("#td").tooltip;
+         });
+}
+$(function () {
+// 还能输入的字得个数
+var able_count = 600;
+// 是否可以发布留言
+var release_able = false;
+// 右上角文字
+var $title_txt = $('.title-txt');
+// 留言框
+var $main_area = $('.main-area');
+// 发布按钮
+var $release_btn = $('.release-btn');
 
-    //列表数据一旦超过30个字符串就只显示，25个字符串+...
-    function display(){
-        var elements=$("#table").find("td");
-            //当鼠标在列表上悬停时，出现内容
-            $("#td").mouseover(function(){
-                $("#td").tooltip;
-             });
+// 输入框获取焦点
+$main_area.focus(function () {
+    console.log("获取焦点");
+    $(this).parent().addClass('outline');
+    $title_txt.addClass('title');
+    if (able_count >= 0) {
+        $title_txt.html("还可以输入" + able_count + "个字");
+    } else {
+        $title_txt.html("你以超出" + (-able_count) + "个字");
     }
+});
+
+// 输入框失去焦点
+$main_area.blur(function () {
+    console.log("失去焦点");
+    $(this).parent().removeClass('outline');
+    $title_txt.removeClass('title');
+    $title_txt.html("输入Body参数");
+});
+
+// 输入框文本修改
+$main_area.on('input', function () {
+        console.log("文本修改");
+        // 剩余可输入的字个数
+        able_count = 600 - $main_area.val().length;
+        // console.log(able_count);
+        // 根据可输入字的个数决定右上角文本的提示 与 是否能发布的状态
+        if (able_count >= 0 && able_count <= 600) {
+            $title_txt.html("还可以输入" + able_count + "个字");
+            if (able_count != 600) {
+                release_able = true;
+            } else {
+                release_able = false;
+            }
+        } else {
+            $title_txt.html("你以超出" + (-able_count) + "个字");
+            release_able = false;
+        }
+        // 根据发布状态决定发布按钮的样式
+        if (release_able) {
+            $release_btn.css({
+                backgroundColor: "orange",
+                borderColor: "orange"
+            })
+        } else {
+            $release_btn.css({
+                backgroundColor: "#ffc09f",
+                borderColor: "#ffc09f"
+            })
+        }
+    }
+)
+}
+)
 </script>
 </body>
 </html>

@@ -3,13 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>自动化测试平台V1.0</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
 <style type="text/css">
+    /*四种响应式类型：（超小屏，小屏，中屏和大屏），其断点是768px,992px,1220px*/
+@media (max-width: 768px) {
+    .container {
+        width: auto;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        width: 100%;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        width: 100%;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 100%;
+    }
+}
+
+
 html,
 body {
   padding: 0px;
@@ -31,6 +54,7 @@ body {
 .container {
   width: 100%;
   height: 100%;
+  position:relative;
   background-image: radial-gradient(1600px at 70% 120%, rgba(33, 39, 80, 1) 10%, #020409 100%);
 }
 
@@ -63,9 +87,9 @@ body {
     text-align: center;
 }
 .form-horizontal .form-group{
-    padding: 0 40px;
-    margin: 0 0 25px 0;
-    position: relative;
+  width: 350px;
+  margin: 0 auto 25px auto;
+  position: relative;
 }
 .form-horizontal .form-control{
     background: #f0f0f0;
@@ -85,8 +109,9 @@ body {
 }
 .form-horizontal .form-group i{
     position: absolute;
+    display: inline-block;
     top: 12px;
-    left: 60px;
+    left: 20px;
     font-size: 17px;
     color: #c8c8c8;
     transition : all 0.5s ease 0s;
@@ -96,10 +121,10 @@ body {
 }
 .form-horizontal .fa-question-circle{
     /*display: inline-block;*/
-    margin-right: 80px;
+    /* margin-right: 80px; */
     position: absolute;
     top: 12px;
-    right: 60px;
+    right: 15px;
     font-size: 20px;
     color: #808080;
     transition: all 0.5s ease 0s;
@@ -108,10 +133,10 @@ body {
     color: #000;
 }
 .form-horizontal .fa-user{
-    margin-left: 90px;
+    /* margin-left: 90px; */
 }
 .form-horizontal .fa-lock:before{
-    margin-left: 90px;
+    /* margin-left: 90px; */
 }
 .form-horizontal .main-checkbox{
     float: left;
@@ -229,10 +254,10 @@ a:hover {
 </head>
 <body>
 <div class="container">
-  <div class="content">
+  <div id="content" class="row-fluid divInterval ">
     <canvas id="universe"></canvas>
       <div class="row">
-            <div class="col-md-offset-4 col-md-4">
+            <div class="col-md-offset-4 col-md-4 col-sm-7 center-auto pd-sm-50 pd-xs-20 main_content">
                 <form class="form-horizontal" method="post" action="/login/">
                     <span class="heading">自动化测试平台V1.0</span>
                     <div class="form-group">
@@ -245,11 +270,6 @@ a:hover {
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>
                     <div class="form-group">
-                        <div class="main-checkbox">
-                            <input type="checkbox" value="None" id="checkbox1" name="check"/>
-                            <label for="checkbox1"></label>
-                        </div>
-                        <span class="text">Remember me</span>
                         <button type="submit" id="submit" class="btn btn-default">登录</button>
                         <br>{% for message in messages %}
                         <div class="alert alert-{message.tags}}" style="font-size: 20px;color: red;margin-left: 10px;padding-top: 30px">{{message}}</div>

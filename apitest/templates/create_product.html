@@ -7,59 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>接口测试平台</title>py
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        function go_delete(id) {
-                $.ajax({
-                    url : "delete_id/",
-                    dataType:'text',
-                    type:'POST',
-                    async:true,
-                    data:{
-                        'path':id
-                    },
-                    success: function (data) {
-                        alert('删除成功');
-                        window.location.reload()
-
-                    },
-                    error:function (data) {
-                        console.log(data);
-                        alert('删除失败')
-                    }
-                })
-        }
-        function go_change(id) {
-           $('#submitBtn2').click(function () {
-                $.ajax({
-                cache:false,
-                url : "product_change_data/",
-                dataType:'text',
-                type:'POST',
-                async:true,
-                data:{
-                    'id':id,
-                    'changemodel': $("#changemodel").val(),
-                    'changeproduct': $("#changeproduct").val(),
-                    'changetester': $("#changetester").val(),
-                    'changedeveloper': $("#changedeveloper").val(),
-                    'changeproductdesc': $("#changeproductdesc").val(),
-                    'changestatus':$("#changestatus").val()
-                },
-                success: function (data) {
-                    alert("提交成功");
-                    window.location.reload();
-                    console.log(data);
-                },
-                error:function (data) {
-                    console.log(data);
-                    alert("数据重复/提交失败");
-                }
-            })
-        })}
-    </script>
 <style type="text/css">
+    .pagination{
+        position: fixed;
+        bottom: 0;
+        margin-left: 200px;
+    }
+    .paginator{
+        bottom: 15px;
+        position: fixed;
+        margin-left: 400px;
+
+    }
 </style>
 </head>
 <body>
@@ -213,26 +172,117 @@
         </tbody>
     </table>
 </div>
-<nav>
-    <ul class="pager pagination navbar-fixed-bottom">
-        {% if products.has_previous %}
-        <li class="previous"><a href="?page={{products.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
-        {% else %}
-        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
-        {% endif %}
-        {% for num in products.paginator.page_range %}
-        {% if num == currentPage %}
-        <li class="item active"><a href="?page={{ num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% else %}
-        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if products.has_next %}
-        <li class="next"><a href="?page={{products.next_page_number}}"  style="margin-right: 700px">下一页</a></li>
-        {% else %}
-        <li class="next disabled"><a href="#" style="margin-right: 700px">下一页</a></li>
-        {% endif %}
+<div class="paginator">
+    <ul class="pagination">
+      <li>
+        {%if products.has_previous%}
+        {#判断是否存在上一页#}
+          <a href="?page={{products.previous_page_number}}" aria-label="Previous">{#previous_page_number判断当前页#}
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        {%else%}
+        <span aria-hidden="true">&laquo;</span>
+        {%endif%}
+      </li>
+        {%for page_num in  products.paginator.page_range %}
+            {% if page_num == products.number %}
+                <li class="active">
+                    <span>{{page_num}}</span>
+                </li>{#当前页高亮#}
+            {% else %}
+                {% if page_num == '...' %}
+                    <li><span>{{page_num}}</span></li>
+                {% else %}
+                    <li>
+                        <a href="?page={{page_num}}">{{page_num}}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {%endfor%}
+        <li>
+            {%if products.has_next%}
+                <a href="?page={{products.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+            {%else%}
+                <span aria-hidden="true">&raquo;</span>
+            {%endif%}
+        </li>
     </ul>
-</nav>
+    <p>(共{{products.paginator.num_pages}}页，当前{{products.number}}页)</p>
+</div>
+</div>
+{#<nav class="page-manager" id="pager-main">#}
+{#    <ul class="pager pagination navbar-fixed-bottom" id="pager">#}
+{#        {% if products.has_previous %}#}
+{#        <li class="previous"><a href="?page={{products.previous_page_number}}">上一页</a></li>#}
+{#        {% else %}#}
+{#        <li class="previous disabled"><a href="#">上一页</a></li>#}
+{#        {% endif %}#}
+{#        {% for num in products.paginator.page_range %}#}
+{#        {% if num == currentPage %}#}
+{#        <li class="item active"><a href="?page={{ num}}">{{num}}</a></li>#}
+{#        {% else %}#}
+{#        <li class="item"><a href="?page={{num}}">{{num}}</a></li>#}
+{#        {% endif %}#}
+{#        {% endfor %}#}
+{#        {% if products.has_next %}#}
+{#        <li class="next"><a href="?page={{products.next_page_number}}">下一页</a></li>#}
+{#        {% else %}#}
+{#        <li class="next disabled"><a href="#">下一页</a></li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{#</nav>#}
 </body>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function go_delete(id) {
+                $.ajax({
+                    url : "delete_id/",
+                    dataType:'text',
+                    type:'POST',
+                    async:true,
+                    data:{
+                        'path':id
+                    },
+                    success: function (data) {
+                        alert('删除成功');
+                        window.location.reload()
+
+                    },
+                    error:function (data) {
+                        console.log(data);
+                        alert('删除失败')
+                    }
+                })
+        }
+        function go_change(id) {
+           $('#submitBtn2').click(function () {
+                $.ajax({
+                cache:false,
+                url : "product_change_data/",
+                dataType:'text',
+                type:'POST',
+                async:true,
+                data:{
+                    'id':id,
+                    'changemodel': $("#changemodel").val(),
+                    'changeproduct': $("#changeproduct").val(),
+                    'changetester': $("#changetester").val(),
+                    'changedeveloper': $("#changedeveloper").val(),
+                    'changeproductdesc': $("#changeproductdesc").val(),
+                    'changestatus':$("#changestatus").val()
+                },
+                success: function (data) {
+                    alert("提交成功");
+                    window.location.reload();
+                    console.log(data);
+                },
+                error:function (data) {
+                    console.log(data);
+                    alert("数据重复/提交失败");
+                }
+            })
+        })}
+    </script>
 </html>

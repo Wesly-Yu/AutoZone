@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
     <title>接口测试平台</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
@@ -196,7 +196,7 @@ ul {
                                 <div class="wrap-head">
                                     <div class="head-logo"></div>
                                     <div class="head-txt">
-                                        <a class="title-txt" href="javascript:void(0)">输入body参数</a>
+                                        <a class="title-txt" href="javascript:void(0)" name="body_data">输入body参数</a>
                                     </div>
                                 </div>
                                 <div class="main-txt">
@@ -318,16 +318,38 @@ ul {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="form-group" id="changeformdatadiv">
-                                            <label for="changeformdatas" >Formdata</label>
-                                            <ul id="changeformdatas" style="list-style-type: none" >
-                                                <li>
-                                                    <input   type="text" class="addformdata" name="change_formdata_key" placeholder="Key"  /><input   type="text" class="addformdata" name="change_formdata_value" placeholder="Value" />
-                                                    <input id="change_addformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
-                                                    <input id="change_delformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
-                                                    <input id="changemergeformdatas" type="text" style="display:None" name="changemergeformdatas"/>
-                                                </li>
-                                            </ul>
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#set" aria-controls="set" role="tab" data-toggle="tab">Body-formdata</a></li>
+                                            <li role="presentation"><a href="#profilenew" aria-controls="profilenew" role="tab" data-toggle="tab">Body-raw</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="set">
+                                                <div class="form-group" id="changeformdatadiv">
+                                                    <label for="changeformdatas" >Body</label>
+                                                    <ul id="changeformdatas" style="list-style-type: none" >
+                                                        <li>
+                                                            <input   type="text" class="addformdata" name="change_formdata_key" placeholder="Key"  /><input   type="text" class="addformdata" name="change_formdata_value" placeholder="Value" />
+                                                            <input id="change_addformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
+                                                            <input id="change_delformdata" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                                            <input id="changemergeformdatas" type="text" style="display:None" name="changemergeformdatas"/>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="profilenew">
+                                                <div class="wrap">
+                                                    <div class="wrap-head">
+                                                        <div class="head-logo"></div>
+                                                        <div class="head-txt">
+                                                            <a class="title-txt" href="javascript:void(0)">输入body参数</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="main-txt">
+                                                        <textarea name="" rows="" cols="" class="main-area"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group" id=changecheckdatadiv">
                                             <label for="changecheckdatas" >Checkdata</label>
@@ -372,21 +394,21 @@ ul {
 <nav>
     <ul class="pager pagination navbar-fixed-bottom">
         {% if steps.has_previous %}
-        <li class="previous"><a href="?page={{steps.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
+            <li class="previous"><a href="?page={{steps.previous_page_number}}">上一页</a></li>
         {% else %}
-        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
+            <li class="previous disabled"><a href="#">上一页</a></li>
         {% endif %}
         {% for num in steps.paginator.page_range %}
-        {% if num == currentPage %}
-        <li class="item active"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% else %}
-        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% endif %}
+            {% if num == currentPage %}
+                <li class="item active"><a href="?page={{num}}">{{num}}</a></li>
+            {% else %}
+                <li class="item"><a href="?page={{num}}">{{num}}</a></li>
+            {% endif %}
         {% endfor %}
         {% if steps.has_next %}
-        <li class="next"><a href="?page={{steps.next_page_number}}"  style="margin-right: 800px">下一页</a></li>
+            <li class="next"><a href="?page={{steps.next_page_number}}">下一页</a></li>
         {% else %}
-        <li class="next disabled"><a href="#" style="margin-right: 800px">下一页</a></li>
+            <li class="next disabled"><a href="#">下一页</a></li>
         {% endif %}
     </ul>
 </nav>

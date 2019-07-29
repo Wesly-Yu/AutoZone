@@ -211,27 +211,6 @@
     <p>(共{{products.paginator.num_pages}}页，当前{{products.number}}页)</p>
 </div>
 </div>
-{#<nav class="page-manager" id="pager-main">#}
-{#    <ul class="pager pagination navbar-fixed-bottom" id="pager">#}
-{#        {% if products.has_previous %}#}
-{#        <li class="previous"><a href="?page={{products.previous_page_number}}">上一页</a></li>#}
-{#        {% else %}#}
-{#        <li class="previous disabled"><a href="#">上一页</a></li>#}
-{#        {% endif %}#}
-{#        {% for num in products.paginator.page_range %}#}
-{#        {% if num == currentPage %}#}
-{#        <li class="item active"><a href="?page={{ num}}">{{num}}</a></li>#}
-{#        {% else %}#}
-{#        <li class="item"><a href="?page={{num}}">{{num}}</a></li>#}
-{#        {% endif %}#}
-{#        {% endfor %}#}
-{#        {% if products.has_next %}#}
-{#        <li class="next"><a href="?page={{products.next_page_number}}">下一页</a></li>#}
-{#        {% else %}#}
-{#        <li class="next disabled"><a href="#">下一页</a></li>#}
-{#        {% endif %}#}
-{#    </ul>#}
-{#</nav>#}
 </body>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>

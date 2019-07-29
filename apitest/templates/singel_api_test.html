@@ -116,6 +116,17 @@ ul {
 	text-decoration: none;
 	font-size: 15px;
 }
+    .pagination{
+        position: fixed;
+        bottom: 0;
+        margin-left: 200px;
+    }
+    .paginator{
+        bottom: 15px;
+        position: fixed;
+        margin-left: 400px;
+
+    }
 </style>
 </head>
 <body>
@@ -391,27 +402,44 @@ ul {
         </tbody>
     </table>
 </div>
-<nav>
-    <ul class="pager pagination navbar-fixed-bottom">
-        {% if steps.has_previous %}
-            <li class="previous"><a href="?page={{steps.previous_page_number}}">上一页</a></li>
-        {% else %}
-            <li class="previous disabled"><a href="#">上一页</a></li>
-        {% endif %}
-        {% for num in steps.paginator.page_range %}
-            {% if num == currentPage %}
-                <li class="item active"><a href="?page={{num}}">{{num}}</a></li>
+<div class="paginator">
+    <ul class="pagination">
+      <li>
+        {%if steps.has_previous%}
+        {#判断是否存在上一页#}
+          <a href="?page={{steps.previous_page_number}}" aria-label="Previous">{#previous_page_number判断当前页#}
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        {%else%}
+        <span aria-hidden="true">&laquo;</span>
+        {%endif%}
+      </li>
+        {%for page_num in  steps.paginator.page_range %}
+            {% if page_num == products.number %}
+                <li class="active">
+                    <span>{{page_num}}</span>
+                </li>{#当前页高亮#}
             {% else %}
-                <li class="item"><a href="?page={{num}}">{{num}}</a></li>
+                {% if page_num == '...' %}
+                    <li><span>{{page_num}}</span></li>
+                {% else %}
+                    <li>
+                        <a href="?page={{page_num}}">{{page_num}}</a>
+                    </li>
+                {% endif %}
             {% endif %}
-        {% endfor %}
-        {% if steps.has_next %}
-            <li class="next"><a href="?page={{steps.next_page_number}}">下一页</a></li>
-        {% else %}
-            <li class="next disabled"><a href="#">下一页</a></li>
-        {% endif %}
+        {%endfor%}
+        <li>
+            {%if steps.has_next%}
+                <a href="?page={{steps.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+            {%else%}
+                <span aria-hidden="true">&raquo;</span>
+            {%endif%}
+        </li>
     </ul>
-</nav>
+    <p>(共{{steps.paginator.num_pages}}页，当前{{steps.number}}页)</p>
+</div>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>

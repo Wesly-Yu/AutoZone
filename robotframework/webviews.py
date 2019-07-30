@@ -6,13 +6,13 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from django.contrib import messages
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
-from webtest.models import Webcasestep,Webcase,Webcase_keywords,webtest_task,Email
+from robotframework.models import Webcasestep,Webcase,Webcase_keywords,webtest_task,Email
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
 import os
 import pyautogui
-from webtest.tasks import write_name_txt,readSQLCounts,get_task_stepdata,getcasename_from_SQL,get_webtask_times
+from robotframework.tasks import write_name_txt,readSQLCounts,get_task_stepdata,getcasename_from_SQL,get_webtask_times
 import time
-from  webtest.get_webcase_stepdata import readwebcaseSQL,write_to_txt,remove_webtest_txt,run_in_terminal
+from  robotframework.get_webcase_stepdata import readwebcaseSQL,write_to_txt,remove_webtest_txt,run_in_terminal
 
 
 
@@ -96,7 +96,7 @@ def upload_file(request):
             return HttpResponse("没有需要上传的文件")
         else:
             #打开特定的文件进行二进制的写操作
-            with open("./webtest/media/%s" % File.name, 'wb+') as f:
+            with open("./robotframework/media/%s" % File.name, 'wb+') as f:
                     for chunk in  File.chunks(): #分块写入文件
                         if str(File) in media_name_list:
                             return HttpResponse("截图文件:"+File.name+"已存在请查看")

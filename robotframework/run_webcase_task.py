@@ -7,7 +7,6 @@ import json
 from idlelib.rpc import response_queue
 import os
 from  selenium import  webdriver
-from  webtest.keywords import *
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By

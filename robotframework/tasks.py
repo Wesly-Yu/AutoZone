@@ -170,7 +170,7 @@ def write_name_txt():
     content2 = "Test Setup\tadd Needed Image Path\n"
     content3 = "Test Teardown\tClose Browser\n"
     content6 = "*** Variables ***\n"
-    content7 = "${picture_path}    F:/AutoZone/webtest/media\n"
+    content7 = "${picture_path}    F:/AutoZone/robotframework/media\n"
     content8 = "*** Keywords ***\n"
     content9 = "Add Needed Image Path\n"
     content10 = "\tAdd Image Path    ${picture_path}\n"
@@ -197,7 +197,7 @@ def  run_in_terminal():
     pyautogui.press('f12')
     pyautogui.keyUp('alt')
     time.sleep(3)
-    k.type_string('cd webtest')
+    k.type_string('cd robotframework')
     time.sleep(1)
     pyautogui.press('enter')
     time.sleep(1)

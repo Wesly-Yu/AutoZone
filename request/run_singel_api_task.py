@@ -1,7 +1,7 @@
 #coding:utf-8
 from tkinter import COMMAND
 import unittest
-from apitest.tasks import singel_api_interfaceTest
+from request.tasks import singel_api_interfaceTest
 import pymysql
 
 def readSQL():

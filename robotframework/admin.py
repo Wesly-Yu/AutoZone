@@ -1,5 +1,5 @@
 from django.contrib import admin
-from  webtest.models import Webcase,Webcasestep
+from  robotframework.models import Webcase,Webcasestep
 # admin.site.register(Webcasestep)
 from datetime import datetime
 

@@ -8,7 +8,7 @@ from pykeyboard import PyKeyboard
 import pyautogui
 PATH = lambda p:os.path.abspath(os.path.join(os.path.dirname(__file__),p))
 path = os.path.abspath(os.path.dirname(__file__))  # 获取当前工程目录
-from webtest.set_langurage import switch_langrage
+from robotframework.set_langurage import switch_langrage
 
 
 
@@ -149,7 +149,7 @@ def  run_in_terminal(upperlevel_id):
     pyautogui.keyUp('alt')
     time.sleep(3)
     switch_langrage()
-    k.type_string('cd webtest')
+    k.type_string('cd robotframework')
     time.sleep(1)
     pyautogui.press('enter')
     time.sleep(1)

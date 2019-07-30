@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class RequestConfig(AppConfig):
-    name = 'apitest'
+    name = 'request'

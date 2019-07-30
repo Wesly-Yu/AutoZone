@@ -5,19 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.contrib.auth import authenticate,login
 from django.shortcuts import render
-from apitest.models import need_data_Apis
-from apitest.models import singel_Apis
-from apitest.models import Create_product
-from apitest.models import singel_apis_task
-from  apitest.models import process_apis_task
+from request.models import need_data_Apis
+from request.models import singel_Apis
+from request.models import Create_product
+from request.models import singel_apis_task
+from  request.models import process_apis_task
 from django.contrib import messages
 import json
 import os
 import pymysql
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
-from apitest.tasks import singel_api_interfaceTest
 import time
-from apitest.run_singel_api_task import readSQL ,read_Results
+from request.run_singel_api_task import readSQL ,read_Results
 from  apscheduler.schedulers.background import BackgroundScheduler
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-from  apitest.models import Create_product
+from  request.models import Create_product
 
 #web自动化数据表
 class Webcase(models.Model):

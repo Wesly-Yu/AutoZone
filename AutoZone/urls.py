@@ -17,8 +17,8 @@ Including another URLconf
 #路由mi
 from django.contrib import admin
 from django.urls import include, path,re_path
-from apitest import views
-from  webtest import webviews
+from request import views
+from  robotframework import webviews
 from  AutoZone import settings
 from django.conf.urls.static import static
 from django.views.static import serve
@@ -73,7 +73,7 @@ urlpatterns = [
     path('webcase_periodic_task/addwebtask_data/',webviews.add_task_webcase_test),
     path('webcase_periodic_task/start_immediately_task/',webviews.run_webcase_immediately),
     path('webcase_periodic_task/start_time_task/',webviews.get_webcase_task_time),
-    path('webtest/results/report/',webviews.web_report),
+    path('robotframework/results/report/',webviews.web_report),
     path('email_add_page/delete_email/', webviews.delete_recevier_message),
     path('email_add_page/edit_email_data/', webviews.edit_recevier_message),
     path('add_email_recevier/',webviews.add_email_recevier),

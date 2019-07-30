@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apitest',
+    'request',
     'django_apscheduler',
-    'webtest',
+    'robotframework',
     'bootstrap3',
 ]
 

@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
                 ('webassertdata', models.CharField(blank=True, max_length=200, verbose_name='验证数据')),
                 ('webtestresult', models.CharField(blank=True, max_length=50, verbose_name='测试结果')),
                 ('webcomments', models.CharField(blank=True, max_length=200, verbose_name='备注')),
-                ('Webcase', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='webtest.Webcase')),
+                ('Webcase', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='robotframework.Webcase')),
             ],
         ),
         migrations.CreateModel(

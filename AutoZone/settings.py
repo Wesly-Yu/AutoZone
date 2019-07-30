@@ -87,9 +87,9 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'autotest',
+        'NAME': 'autozone',
         'USER':'root',
-        'PASSWORD':'test123456',
+        'PASSWORD':'a12345678',
         'HOST':'127.0.0.1',
         'PORT':'3306',
 

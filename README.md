@@ -46,7 +46,7 @@ python manage.py runserver 指定希望运行的端口,也可以在在pycharm中
 ps:背景刚开始看还可以，后面越看越丑，有推荐的嘛？
 创建登录的账号和密码：
 ###### 登陆后页面展示如下一些功能:
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/tools.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730141239.png)
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/shouye.png)<br>
 ###### 可以根据不同的项目新建用例作为关联管理：<br>
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/xiangmu.png)

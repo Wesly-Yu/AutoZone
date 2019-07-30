@@ -136,16 +136,31 @@ ul {
         margin-left: 8px;
         margin-top: -9px;
     }
+    #user-tool{
+        height: 43px;
+    }
+    #nav-user{
+        height: 43px;
+        width: 300px;
+    }
+    #logout-btn{
+        width: 60px;
+        float: none;
+        line-height: 50px;
+        margin-left: 40px;
+    }
+    #user-idle{
+        width: 60px;
+        float: none;
+        line-height: 50px;
+        margin-left: 110px;
+    }
 </style>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 43px">
-    <div class="container">
-        <ul class="nav nav-justified">
-            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
-            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
-        </ul>
-    </div>
+<nav id="user-tool" class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <a id="user-idle" href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a>
+    <a id="logout-btn" href="/login/" target="_top">退出</a>
 </nav>
 <div class="col-sm-offset-4" style="font-size: 20px;color: #53245d;padding-top: 80px">
     <h5 href="#" style="font-size: 25px">单一的接口测试用例</h5>

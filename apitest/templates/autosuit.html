@@ -10,22 +10,34 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style type="text/css">
-    #btn1{
-        background:#53245d;
-        color:white;
+    .navbar-nav.navbar-right{
+        margin-right: 0px;
     }
+    @media (min-width: 768px){
+        .navbar-right{
+        float: right !important;
+        }
+    }
+    @media only screen and (min-width: 767px){
+        .navbar-nav>li>a {
+            padding: 8px 15px;
+            margin-top: 16px;
+        }
+    }
+
 
 </style>
 <body>
-<form class="navbar-form"  style="padding-top: 30px;margin-left: 7px">
-    <div class="form-group">
-        <input id="ipt2" name="Api_name" type="text" placeholder="用例名称" class="form-control">
+<nav  class="navbar navbar-fixed-top navbar-has-shadow">
+    <div  class="container">
+        <div id="navbar-collapse" class="navbar-collapse collapse" aria-expanded="false">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+               <li><a id="logout-btn" href="/login/" target="_top">退出</a></li>
+           </ul>
+        </div>
     </div>
-    <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white;">搜索</button>
-    <button id="btn1"  class="btn btn-default" data-toggle="modal" data-target="#addMyModal2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
-    {% csrf_token %}
-</form>
-
+</nav>
 </body>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>

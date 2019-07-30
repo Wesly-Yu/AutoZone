@@ -28,7 +28,7 @@
 首先安装python3.6版本或者3.7版本（有以前的安装库的尽量卸载，避免安装包版本的冲突，如果冲突了卸载了再安装很费时间，亲测这些坑），<br>然后找到目录下的requirements.txt文件，按住shift +右键点击在此处打开Power shell窗口<br>, 然后输入pip install -r requirement.txt,等待安装完毕，
 安装mysql数据库（我的版本为5.7），<br>
 导入关键字说明文件autotest.sql，在数据中新建一个连接，
-新建的连接名称与账户密码都应该与Django settings文件中的此处一样：![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/20190526221134.png)<br>
+新建的连接名称与账户密码都应该与Django settings文件中的此处一样：![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/WeChat%20Screenshot_20190730135710.png)<br>
 下载完整的工程文件后，pycharm中打开
 运行(也可以用pycharm的快捷键ctrl+alt +R) 首先输入makemigration--然后是migrate 输入时会有提示(##很多人在这一步出现了报错，解决办法是把apitest,webtest包下的migrations文件夹删除，这是我上传的文件时，已经makemigration过了造成的)，这一步是创建数据表<br>
 你需要设置你的各种参数，不一定要与我的一样！！！，我是通过navicat连接，你也可以选择别的工具<br>
@@ -42,18 +42,16 @@ python manage.py runserver 指定希望运行的端口,也可以在在pycharm中
 创建后才能登陆，使用功能，否则会报错！<br>
 然后在网页上输入网址比如127.0.0.1:9000/admin/,然后输入你 createsuperuser中设置的账户和密码,如果忘记了再次设置新的即可<br>
 登陆Django自带的admin页面后显示如下:![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/3.png),在箭头所指示的地方添加平台的使用用户<br>
-在页面中输入http://127.0.0.1:8000/login/ 后登陆页面如下![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/login.png)
+在页面中输入http://127.0.0.1:8000/login/ 后登陆页面如下![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730140741.png)
 ps:背景刚开始看还可以，后面越看越丑，有推荐的嘛？
 创建登录的账号和密码：
 ###### 登陆后页面展示如下一些功能:
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/tools.png)
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/shouye.png)<br>
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730141239.png)
 ###### 可以根据不同的项目新建用例作为关联管理：<br>
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/xiangmu.png)
 ###### 不同的项目添加不同的测试进度，进行展示:<br>
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/jindu.png)
 ###### 接口参数添加页面如下:
-![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/jiekou.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730141625.png)
+![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730141636.png)
 也可以在Assert 中可以对多个参数做判断（后续将增加对返回值参数是否存在与数据库中的断言）
 ###### 测试报告如下
 ![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/report.png)

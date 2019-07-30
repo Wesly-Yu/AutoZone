@@ -42,7 +42,7 @@ python manage.py runserver 指定希望运行的端口,也可以在在pycharm中
 创建后才能登陆，使用功能，否则会报错！<br>
 然后在网页上输入网址比如127.0.0.1:9000/admin/,然后输入你 createsuperuser中设置的账户和密码,如果忘记了再次设置新的即可<br>
 登陆Django自带的admin页面后显示如下:![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/3.png),在箭头所指示的地方添加平台的使用用户<br>
-在页面中输入http://127.0.0.1:8000/login/ 后登陆页面如下![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/login.png)
+在页面中输入http://127.0.0.1:8000/login/ 后登陆页面如下![image](https://github.com/Wesly-Yu/AutoZone/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190730140741.png)
 ps:背景刚开始看还可以，后面越看越丑，有推荐的嘛？
 创建登录的账号和密码：
 ###### 登陆后页面展示如下一些功能:

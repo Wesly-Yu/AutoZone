@@ -32,6 +32,17 @@
             position: relative;
         }
     }
+    .pagination{
+        position: fixed;
+        bottom: 0;
+        margin-left: 200px;
+    }
+    .paginator{
+        bottom: 15px;
+        position: fixed;
+        margin-left: 400px;
+
+    }
 </style>
 <body>
 <nav  class="navbar navbar-fixed-top navbar-has-shadow">
@@ -167,28 +178,45 @@
     </div>
   </div>
 </div>
-<nav>
-    <ul class="pager pagination navbar-fixed-bottom">
-        {% if tasks.has_previous %}
-        <li class="previous"><a href="?page={{singel_tasks.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
-        {% else %}
-        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
-        {% endif %}
-        {% for num in singel_tasks.paginator.page_range %}
-        {% if num == currentPage %}
-        <li class="item active"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% else %}
-        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if singel_tasks.has_next %}
-        <li class="next"><a href="?page={{singel_tasks.next_page_number}}"  style="margin-right: 800px">下一页</a></li>
-        {% else %}
-        <li class="next disabled"><a href="#" style="margin-right: 800px">下一页</a></li>
-        {% endif %}
+<div class="paginator">
+    <ul class="pagination">
+      <li>
+        {%if tasks.has_previous%}
+        {#判断是否存在上一页#}
+          <a href="?page={{singel_tasks.previous_page_number}}" aria-label="Previous">{#previous_page_number判断当前页#}
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        {%else%}
+        <span aria-hidden="true">&laquo;</span>
+        {%endif%}
+      </li>
+        {%for page_num in  singel_tasks.paginator.page_range %}
+            {% if page_num == singel_tasks.number %}
+                <li class="active">
+                    <span>{{page_num}}</span>
+                </li>{#当前页高亮#}
+            {% else %}
+                {% if page_num == '...' %}
+                    <li><span>{{page_num}}</span></li>
+                {% else %}
+                    <li>
+                        <a href="?page={{page_num}}">{{page_num}}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {%endfor%}
+        <li>
+            {%if singel_tasks.has_next%}
+                <a href="?page={{singel_tasks.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span></a>
+            {%else%}
+                <span aria-hidden="true">&raquo;</span>
+            {%endif%}
+        </li>
     </ul>
-</nav>
-
+    <p>(共{{singel_tasks.paginator.num_pages}}页，当前{{singel_tasks.number}}页)</p>
+</div>
+</div>
 <script>
     // 添加用例到任务执行列表中
     // var id,apiname,modelname;

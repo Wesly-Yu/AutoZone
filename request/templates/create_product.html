@@ -19,16 +19,34 @@
         margin-left: 400px;
 
     }
+    .navbar-nav.navbar-right{
+        margin-right: 0px;
+    }
+    @media (min-width: 768px){
+        .navbar-right{
+        float: right !important;
+        }
+    }
+    @media only screen and (min-width: 767px){
+        .navbar-nav>li>a {
+            padding: 8px 15px;
+            margin-top: 16px;
+            display: block;
+            position: relative;
+        }
+    }
 </style>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 40px">
-    <div class="container" style="height: 40px">
-        <ul class="nav nav-justified">
-            <li class="navbar-link"><a href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
-            <li class="navbar-link"><a href="/login/" target="_top">退出</a></li>
-        </ul>
-        <a class="navbar-brand" href="#" target="mainFrame"></a>
+<nav  class="navbar navbar-fixed-top navbar-has-shadow">
+    <div  class="container">
+        <div id="navbar-collapse" class="navbar-collapse collapse" aria-expanded="false">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-open">上传测试用例</a></li>
+               <li><a id="logout-btn" href="/login/" target="_top">退出</a></li>
+           </ul>
+        </div>
     </div>
 </nav>
 <form class="navbar-form" method="get" action="//">

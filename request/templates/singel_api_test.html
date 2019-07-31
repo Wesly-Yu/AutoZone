@@ -443,7 +443,7 @@ ul {
         {%endif%}
       </li>
         {%for page_num in  steps.paginator.page_range %}
-            {% if page_num == products.number %}
+            {% if page_num == steps.number %}
                 <li class="active">
                     <span>{{page_num}}</span>
                 </li>{#当前页高亮#}

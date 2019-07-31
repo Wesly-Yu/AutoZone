@@ -28,6 +28,17 @@
             position: relative;
         }
     }
+    .pagination{
+        position: fixed;
+        bottom: 0;
+        margin-left: 200px;
+    }
+    .paginator {
+        bottom: 15px;
+        position: fixed;
+        margin-left: 400px;
+
+    }
 </style>
 <body>
 <nav  class="navbar navbar-fixed-top navbar-has-shadow">
@@ -92,27 +103,44 @@
         </tbody>
     </table>
 </div>
-<nav>
-    <ul class="pager pagination navbar-fixed-bottom">
-        {% if webcases.has_previous %}
-        <li class="previous"><a href="?page={{webcases.previous_page_number}}" style="margin-left: 600px">上一页</a></li>
-        {% else %}
-        <li class="previous disabled"><a href="#" style="margin-left: 600px">上一页</a></li>
-        {% endif %}
-        {% for num in webcases.paginator.page_range %}
-        {% if num == currentPage %}
-        <li class="item active"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% else %}
-        <li class="item"><a href="?page={{num}}" style="margin-left: 30px">{{num}}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if webcases.has_next %}
-        <li class="next"><a href="?page={{webcases.next_page_number}}"  style="margin-right: 800px">下一页</a></li>
-        {% else %}
-        <li class="next disabled"><a href="#" style="margin-right: 800px">下一页</a></li>
-        {% endif %}
+<div class="paginator">
+    <ul class="pagination">
+      <li>
+        {%if webcases.has_previous%}
+        {#判断是否存在上一页#}
+          <a href="?page={{webcases.previous_page_number}}" aria-label="Previous">{#previous_page_number判断当前页#}
+            <span aria-hidden="false" >&laquo;</span>
+          </a>
+        {%else%}
+        <span aria-hidden="true" class="previous disabled">&laquo;</span>
+        {%endif%}
+      </li>
+        {%for page_num in  webcases.paginator.page_range %}
+            {% if page_num == webcases.number %}
+                <li class="active">
+                    <span>{{page_num}}</span>
+                </li>{#当前页高亮#}
+            {% else %}
+                {% if page_num == '...' %}
+                    <li><span>{{page_num}}</span></li>
+                {% else %}
+                    <li>
+                        <a href="?page={{page_num}}">{{page_num}}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {%endfor%}
+        <li>
+            {%if webcases.has_next%}
+                <a href="?page={{webcases.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="false" >&raquo;</span></a>
+            {%else%}
+                <span aria-hidden="true" class="previous disabled">&raquo;</span>
+            {%endif%}
+        </li>
     </ul>
-</nav>
+    <p>(共{{webcases.paginator.num_pages}}页，当前{{webcases.number}}页)</p>
+</div>
 </body>
 <script>
 //点击立即执行任务列表中的用例

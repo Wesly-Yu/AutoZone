@@ -382,7 +382,7 @@ ul {
                                                         </div>
                                                     </div>
                                                     <div class="main-txt">
-                                                        <textarea name="" rows="" cols="" class="main-area"></textarea>
+                                                        <textarea name="" rows="" cols="" class="main-area" id="comments"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -542,18 +542,22 @@ ul {
             var objthree={};
             var e=document.querySelectorAll("input[name='formdatas_key']");
             var f=document.querySelectorAll("input[name='formdatas_value']");
-            for(var k=0;k<e.length;k++){
-                var keythree = e[k].value;
-                var valuethree = f[k].value;
-                objthree[keythree]=valuethree;
-                objthreestring = JSON.stringify(objthree);
-                if ( objthreestring==null){
-                    var bodydatas=document.querySelectorAll("textarea[name='addmergebodydata']");
-                    objthreestring = JSON.stringify(bodydatas);
+            var test = document.getElementById("comments");
+            if (test!==null){
+                var text2 = test.value;
+                console.info(text2);
+                objthreestring = JSON.stringify(text2);
+                $("#addmergeformdatas").val(objthreestring)
+                }
+            else {
+                for(var k=0;k<e.length;k++){
+                    var keythree = e[k].value;
+                    var valuethree = f[k].value;
+                    objthree[keythree]=valuethree;
+                    objthreestring = JSON.stringify(objthree);
                     $("#addmergeformdatas").val(objthreestring)
-                }else {
-                    $("#addmergeformdatas").val(objthreestring)}
-
+                }
+            }
             var objfour={};
             var g=document.querySelectorAll("input[name='checkdatas_key']");
             var h=document.querySelectorAll("input[name='checkdatas_value']");
@@ -810,9 +814,7 @@ $main_area.on('input', function () {
     }
 )
 }
-)}
-    }
-    )
+)})
 </script>
 </body>
 </html>

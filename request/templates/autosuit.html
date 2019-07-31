@@ -22,6 +22,8 @@
         .navbar-nav>li>a {
             padding: 8px 15px;
             margin-top: 16px;
+            display: block;
+            position: relative;
         }
     }
 
@@ -33,6 +35,7 @@
         <div id="navbar-collapse" class="navbar-collapse collapse" aria-expanded="false">
            <ul class="nav navbar-nav navbar-right">
                <li><a id="user-idle" href="#" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-open">上传测试用例</a></li>
                <li><a id="logout-btn" href="/login/" target="_top">退出</a></li>
            </ul>
         </div>

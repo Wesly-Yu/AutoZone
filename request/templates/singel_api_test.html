@@ -136,31 +136,35 @@ ul {
         margin-left: 8px;
         margin-top: -9px;
     }
-    #user-tool{
-        height: 43px;
+    .navbar-nav.navbar-right{
+        margin-right: 0px;
     }
-    #nav-user{
-        height: 43px;
-        width: 300px;
+    @media (min-width: 768px){
+        .navbar-right{
+        float: right !important;
+        }
     }
-    #logout-btn{
-        width: 60px;
-        float: none;
-        line-height: 50px;
-        margin-left: 40px;
-    }
-    #user-idle{
-        width: 60px;
-        float: none;
-        line-height: 50px;
-        margin-left: 110px;
+    @media only screen and (min-width: 767px){
+        .navbar-nav>li>a {
+            padding: 8px 15px;
+            margin-top: 16px;
+            display: block;
+            position: relative;
+        }
     }
 </style>
 </head>
 <body>
-<nav id="user-tool" class="navbar navbar-default navbar-fixed-top" role="navigation" >
-    <a id="user-idle" href="#" style="margin-left: 950px" class="glyphicon glyphicon-user">&nbsp{{user}}</a>
-    <a id="logout-btn" href="/login/" target="_top">退出</a>
+<nav  class="navbar navbar-fixed-top navbar-has-shadow">
+    <div  class="container">
+        <div id="navbar-collapse" class="navbar-collapse collapse" aria-expanded="false">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-user">&nbsp{{user}}</a></li>
+               <li><a id="user-idle" href="#" class="glyphicon glyphicon-open">上传测试用例</a></li>
+               <li><a id="logout-btn" href="/login/" target="_top">退出</a></li>
+           </ul>
+        </div>
+    </div>
 </nav>
 <div class="col-sm-offset-4" style="font-size: 20px;color: #53245d;padding-top: 80px">
     <h5 href="#" style="font-size: 25px">单一的接口测试用例</h5>

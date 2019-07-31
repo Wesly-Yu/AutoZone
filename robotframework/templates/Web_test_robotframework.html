@@ -109,7 +109,7 @@
         {%if webcases.has_previous%}
         {#判断是否存在上一页#}
           <a href="?page={{webcases.previous_page_number}}" aria-label="Previous">{#previous_page_number判断当前页#}
-            <span aria-hidden="false" >&laquo;</span>
+            <span aria-hidden="true" >&laquo;</span>
           </a>
         {%else%}
         <span aria-hidden="true" class="previous disabled">&laquo;</span>
@@ -133,7 +133,7 @@
         <li>
             {%if webcases.has_next%}
                 <a href="?page={{webcases.next_page_number}}" aria-label="Next">
-                    <span aria-hidden="false" >&raquo;</span></a>
+                    <span aria-hidden="true" >&raquo;</span></a>
             {%else%}
                 <span aria-hidden="true" class="previous disabled">&raquo;</span>
             {%endif%}

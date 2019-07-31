@@ -204,7 +204,7 @@ ul {
                         <label for="headers">Headers</label>
                         <ul id="headers" style="list-style-type: none">
                             <li>
-                                <input id="headers_data"  class="addheaders" maxlength="300" name="headers_key" type="text"  placeholder="Key"  /><input  class="addheaders" name="headers_value" type="text"  placeholder="Value"/>
+                                <input id="headers_data"  class="addheaders" maxlength="300" name="headers_key" type="text"  placeholder="Key" /><input  class="addheaders" name="headers_value" type="text"  placeholder="Value"/>
                                 <input id="addheaders" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
                                 <input id="delheaders" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
                                 <input id="addmergeheaders" type="text" style="display:None" maxlength="500" name="addmergeheaders"/>
@@ -235,11 +235,11 @@ ul {
                                 <div class="wrap-head">
                                     <div class="head-logo"></div>
                                     <div class="head-txt">
-                                        <a class="title-txt" href="javascript:void(0)" name="body_data">输入body参数</a>
+                                        <a class="title-txt" href="javascript:void(0)">输入body参数</a>
                                     </div>
                                 </div>
                                 <div class="main-txt">
-                                    <textarea name="" rows="" cols="" class="main-area"></textarea>
+                                    <textarea id="addmergebodydata" rows="" cols="" class="main-area"  name="addmergebodydata"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -258,9 +258,7 @@ ul {
                             <label for="checkstatus" >Assert-status-code</label>
                             <ul id="checkstatus" style="list-style-type: none" >
                                 <li>
-                                    <input   type="text" class="addstatuscode" name="checkstaus_key" placeholder="Key"  /><input   type="text" name="checkstatus_value" class="addstatus" placeholder="Value"/>
-                                    <input id="addstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
-                                    <input id="delstatuscode" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
+                                    <input   type="text" class="addstatuscode" name="checkstatus_key" placeholder="Key"  /><input   type="text" name="checkstatus_value" class="addstatus" placeholder="Value"/>
                                     <input id="addmergestatuscode" type="text" style="display:None" name="addmergestatuscode"/>
                                 </li>
                             </ul>
@@ -277,7 +275,6 @@ ul {
             </div>
         </div>
     </div>
-</div>
 </div>
 <div class="container col-md-12">
     <table id="table" class="table table-striped table-bordered table-hover">
@@ -549,9 +546,14 @@ ul {
                 var keythree = e[k].value;
                 var valuethree = f[k].value;
                 objthree[keythree]=valuethree;
-            }
-            objthreestring = JSON.stringify(objthree);
-            $("#addmergeformdatas").val(objthreestring);
+                objthreestring = JSON.stringify(objthree);
+                if ( objthreestring==null){
+                    var bodydatas=document.querySelectorAll("textarea[name='addmergebodydata']");
+                    objthreestring = JSON.stringify(bodydatas);
+                    $("#addmergeformdatas").val(objthreestring)
+                }else {
+                    $("#addmergeformdatas").val(objthreestring)}
+
             var objfour={};
             var g=document.querySelectorAll("input[name='checkdatas_key']");
             var h=document.querySelectorAll("input[name='checkdatas_value']");
@@ -563,8 +565,8 @@ ul {
             objfourstring = JSON.stringify(objfour);
             $("#addmergecheckdatas").val(objfourstring);
             var objfive={};
-            var u=document.querySelectorAll("input[name='checkstaus_key']");
-            var v=document.querySelectorAll("input[name='checkstaus_value']");
+            var u=document.querySelectorAll("input[name='checkstatus_key']");
+            var v=document.querySelectorAll("input[name='checkstatus_value']");
             for(var m=0;m<u.length;m++){
                 var keyfive = u[m].value;
                 var valuefive = v[m].value;
@@ -572,7 +574,6 @@ ul {
             }
             objfivestring = JSON.stringify(objfive);
             $("#addmergestatuscode").val(objfivestring);
-    });
     $('#addsubmitBtn').click(function go_add (id) {
         $.ajax({
             cache:false,
@@ -809,7 +810,9 @@ $main_area.on('input', function () {
     }
 )
 }
-)
+)}
+    }
+    )
 </script>
 </body>
 </html>

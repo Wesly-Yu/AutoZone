@@ -79,9 +79,14 @@ def add_singel_api(request):
         newMethod_data = request.POST.get("Method",)
         newMergeheaders_data  = json.loads(request.POST.get("addmergeheaders",))
         newMergeform_data = json.loads(request.POST.get("addmergeformdatas",))
+        # if (type(newMergeform_data)=='dict'):
+        #     newMergeform_data=newMergeform_data
+        # else:
+        #     newMergeform_data=eval(newMergeform_data)
         newMergecheck_data = json.loads(request.POST.get("addmergecheckdatas",))
+        newMergecheck_statuscode = json.loads(request.POST.get("addmergestatuscode"))
         newCharger_data = request.POST.get("charger",)
-        singel_Apis.objects.create(Product=newModelname_data, Apiname=newCasename_data, Apiurl=newUrl_data, Apiheader=newMergeheaders_data, Apimethod=newMethod_data, Apiformdata=newMergeform_data, Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
+        singel_Apis.objects.create(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data, Apiheader=newMergeheaders_data, Apimethod=newMethod_data, Apiformdata=newMergeform_data, Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
     return render(request, "singel_api_test.html", {"user": username, "steps": steps})
 
 #删除单一接口

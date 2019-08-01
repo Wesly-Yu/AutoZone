@@ -152,6 +152,11 @@ ul {
             position: relative;
         }
     }
+    .table{
+        table-layout: fixed;
+        word-break: break-all;
+    }
+
 </style>
 </head>
 <body>
@@ -213,7 +218,7 @@ ul {
                     </div>
                 <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Body-formdata</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Body-json</a></li>
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Body-raw</a></li>
                   </ul>
                     <div class="tab-content">
@@ -239,7 +244,7 @@ ul {
                                     </div>
                                 </div>
                                 <div class="main-txt">
-                                    <textarea id="addmergebodydata" rows="" cols="" class="main-area"  name="addmergebodydata"></textarea>
+                                    <textarea id="addmergebodydata" type="text" value="" class="main-area"  name="addmergebodydata"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -277,7 +282,7 @@ ul {
     </div>
 </div>
 <div class="container col-md-12">
-    <table id="table" class="table table-striped table-bordered table-hover">
+    <table id="tableshow" class="table table-striped table-bordered table-hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -356,7 +361,7 @@ ul {
                                         </div>
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" role="tablist">
-                                            <li role="presentation" class="active"><a href="#set" aria-controls="set" role="tab" data-toggle="tab">Body-formdata</a></li>
+                                            <li role="presentation" class="active"><a href="#set" aria-controls="set" role="tab" data-toggle="tab">Body-json</a></li>
                                             <li role="presentation"><a href="#profilenew" aria-controls="profilenew" role="tab" data-toggle="tab">Body-raw</a></li>
                                         </ul>
                                         <div class="tab-content">
@@ -468,21 +473,6 @@ ul {
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-    //列表数据一旦超过30个字符串就只显示，25个字符串+...
-    function display(){
-        var elements=$("#table").find("td");
-        for (var i=0;i<elements.length;i++){
-            $(elements[i]).attr("title",$(elements[i]).text());
-            if ($(elements[i]).text().length>=30){
-                var str=$(elements[i]).text().substring(0,25)+"...";
-                $(elements[i]).html(str);
-            }
-            //当鼠标在列表上悬停时，出现内容
-            $(elements[i]).mouseover(function(){
-                $(this).tooltip;
-            });
-        }
-    }
     //增加headers行列
     $(function () {
         $("#addheaders").click(function () {
@@ -538,14 +528,12 @@ ul {
             }
             objonestring = JSON.stringify(objone);
             $("#addmergeheaders").val(objonestring);
-            console.info(objonestring);
             var objthree={};
             var e=document.querySelectorAll("input[name='formdatas_key']");
             var f=document.querySelectorAll("input[name='formdatas_value']");
-            var test = document.getElementById("comments");
-            if (test!==null){
+            var test = document.getElementById("addmergebodydata");
+            if (test!==""){
                 var text2 = test.value;
-                console.info(text2);
                 objthreestring = JSON.stringify(text2);
                 $("#addmergeformdatas").val(objthreestring)
                 }
@@ -578,7 +566,7 @@ ul {
             }
             objfivestring = JSON.stringify(objfive);
             $("#addmergestatuscode").val(objfivestring);
-    $('#addsubmitBtn').click(function go_add (id) {
+    $('#addsubmitBtn').click(function go_add () {
         $.ajax({
             cache:false,
             url : "add_singel_data/",
@@ -741,80 +729,74 @@ ul {
             });
         });
     }
-//列表数据一旦超过30个字符串就只显示，25个字符串+...
-function display(){
-    var elements=$("#table").find("td");
-        //当鼠标在列表上悬停时，出现内容
-        $("#td").mouseover(function(){
-            $("#td").tooltip;
-         });
-}
-$(function () {
-// 还能输入的字得个数
-var able_count = 600;
-// 是否可以发布留言
-var release_able = false;
-// 右上角文字
-var $title_txt = $('.title-txt');
-// 留言框
-var $main_area = $('.main-area');
-// 发布按钮
-var $release_btn = $('.release-btn');
 
-// 输入框获取焦点
-$main_area.focus(function () {
-    console.log("获取焦点");
-    $(this).parent().addClass('outline');
-    $title_txt.addClass('title');
-    if (able_count >= 0) {
-        $title_txt.html("还可以输入" + able_count + "个字");
-    } else {
-        $title_txt.html("你以超出" + (-able_count) + "个字");
-    }
-});
 
-// 输入框失去焦点
-$main_area.blur(function () {
-    console.log("失去焦点");
-    $(this).parent().removeClass('outline');
-    $title_txt.removeClass('title');
-    $title_txt.html("输入Body参数");
-});
+    $(function () {
+        // 还能输入的字得个数
+        var able_count = 600;
+        // 是否可以发布留言
+        var release_able = false;
+        // 右上角文字
+        var $title_txt = $('.title-txt');
+        // 留言框
+        var $main_area = $('.main-area');
+        // 发布按钮
+        var $release_btn = $('.release-btn');
 
-// 输入框文本修改
-$main_area.on('input', function () {
-        console.log("文本修改");
-        // 剩余可输入的字个数
-        able_count = 600 - $main_area.val().length;
-        // console.log(able_count);
-        // 根据可输入字的个数决定右上角文本的提示 与 是否能发布的状态
-        if (able_count >= 0 && able_count <= 600) {
+        // 输入框获取焦点
+    $main_area.focus(function () {
+        console.log("获取焦点");
+        $(this).parent().addClass('outline');
+        $title_txt.addClass('title');
+        if (able_count >= 0) {
             $title_txt.html("还可以输入" + able_count + "个字");
-            if (able_count != 600) {
-                release_able = true;
-            } else {
-                release_able = false;
-            }
         } else {
             $title_txt.html("你以超出" + (-able_count) + "个字");
-            release_able = false;
         }
-        // 根据发布状态决定发布按钮的样式
-        if (release_able) {
-            $release_btn.css({
-                backgroundColor: "orange",
-                borderColor: "orange"
-            })
-        } else {
-            $release_btn.css({
-                backgroundColor: "#ffc09f",
-                borderColor: "#ffc09f"
-            })
+    });
+
+    // 输入框失去焦点
+    $main_area.blur(function () {
+        console.log("失去焦点");
+        $(this).parent().removeClass('outline');
+        $title_txt.removeClass('title');
+        $title_txt.html("输入Body参数");
+    });
+
+    // 输入框文本修改
+    $main_area.on('input', function () {
+            console.log("文本修改");
+            // 剩余可输入的字个数
+            able_count = 600 - $main_area.val().length;
+            // console.log(able_count);
+            // 根据可输入字的个数决定右上角文本的提示 与 是否能发布的状态
+            if (able_count >= 0 && able_count <= 600) {
+                $title_txt.html("还可以输入" + able_count + "个字");
+                if (able_count != 600) {
+                    release_able = true;
+                } else {
+                    release_able = false;
+                }
+            } else {
+                $title_txt.html("你以超出" + (-able_count) + "个字");
+                release_able = false;
+            }
+            // 根据发布状态决定发布按钮的样式
+            if (release_able) {
+                $release_btn.css({
+                    backgroundColor: "orange",
+                    borderColor: "orange"
+                })
+            } else {
+                $release_btn.css({
+                    backgroundColor: "#ffc09f",
+                    borderColor: "#ffc09f"
+                })
+            }
         }
+    )
     }
-)
-}
-)})
+    )})
 </script>
 </body>
 </html>

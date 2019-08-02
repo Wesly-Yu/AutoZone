@@ -387,7 +387,7 @@ ul {
                                                         </div>
                                                     </div>
                                                     <div class="main-txt">
-                                                        <textarea name="" rows="" cols="" class="main-area" id="comments"></textarea>
+                                                        <textarea name="" rows="" cols="" class="main-area" id="changemergebodydata"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -517,56 +517,56 @@ ul {
             }
         });
     });
-    $("#addsubmitBtn").click(function () {
-            var objone={};
-            var a=document.querySelectorAll("input[name='headers_key']");
-            var b=document.querySelectorAll("input[name='headers_value']");
-            for(var i=0;i<a.length;i++){
-                var keyone = a[i].value;
-                var valueone = b[i].value;
-                objone[keyone]=valueone;
-            }
-            objonestring = JSON.stringify(objone);
-            $("#addmergeheaders").val(objonestring);
-            var objthree={};
-            var e=document.querySelectorAll("input[name='formdatas_key']");
-            var f=document.querySelectorAll("input[name='formdatas_value']");
-            var test = document.getElementById("addmergebodydata");
-            if (test!==""){
-                var text2 = test.value;
-                objthreestring = JSON.stringify(text2);
-                $("#addmergeformdatas").val(objthreestring)
-                }
-            else {
-                for(var k=0;k<e.length;k++){
-                    var keythree = e[k].value;
-                    var valuethree = f[k].value;
-                    objthree[keythree]=valuethree;
-                    objthreestring = JSON.stringify(objthree);
-                    $("#addmergeformdatas").val(objthreestring)
-                }
-            }
-            var objfour={};
-            var g=document.querySelectorAll("input[name='checkdatas_key']");
-            var h=document.querySelectorAll("input[name='checkdatas_value']");
-            for(var l=0;l<g.length;l++){
-                var keyfour = g[l].value;
-                var valuefour = h[l].value;
-                objfour[keyfour]=valuefour;
-            }
-            objfourstring = JSON.stringify(objfour);
-            $("#addmergecheckdatas").val(objfourstring);
-            var objfive={};
-            var u=document.querySelectorAll("input[name='checkstatus_key']");
-            var v=document.querySelectorAll("input[name='checkstatus_value']");
-            for(var m=0;m<u.length;m++){
-                var keyfive = u[m].value;
-                var valuefive = v[m].value;
-                objfive[keyfive]=valuefive;
-            }
-            objfivestring = JSON.stringify(objfive);
-            $("#addmergestatuscode").val(objfivestring);
+    //将模态框中的数据合并后发送给ajax请求
     $('#addsubmitBtn').click(function go_add () {
+        var objone={};
+        var a=document.querySelectorAll("input[name='headers_key']");
+        var b=document.querySelectorAll("input[name='headers_value']");
+        for(var i=0;i<a.length;i++){
+            var keyone = a[i].value;
+            var valueone = b[i].value;
+            objone[keyone]=valueone;
+        }
+        objonestring = JSON.stringify(objone);
+        $("#addmergeheaders").val(objonestring);
+        var objthree={};
+        var e=document.querySelectorAll("input[name='formdatas_key']");
+        var f=document.querySelectorAll("input[name='formdatas_value']");
+        var test = document.getElementById("addmergebodydata");
+        if (test!==""){
+            var text2 = test.value;
+            objthreestring = JSON.stringify(text2);
+            $("#addmergeformdatas").val(objthreestring)
+            }
+        else {
+            for(var k=0;k<e.length;k++){
+                var keythree = e[k].value;
+                var valuethree = f[k].value;
+                objthree[keythree]=valuethree;
+                objthreestring = JSON.stringify(objthree);
+                $("#addmergeformdatas").val(objthreestring)
+            }
+        }
+        var objfour={};
+        var g=document.querySelectorAll("input[name='checkdatas_key']");
+        var h=document.querySelectorAll("input[name='checkdatas_value']");
+        for(var l=0;l<g.length;l++){
+            var keyfour = g[l].value;
+            var valuefour = h[l].value;
+            objfour[keyfour]=valuefour;
+        }
+        objfourstring = JSON.stringify(objfour);
+        $("#addmergecheckdatas").val(objfourstring);
+        var objfive={};
+        var u=document.querySelectorAll("input[name='checkstatus_key']");
+        var v=document.querySelectorAll("input[name='checkstatus_value']");
+        for(var m=0;m<u.length;m++){
+            var keyfive = u[m].value;
+            var valuefive = v[m].value;
+            objfive[keyfive]=valuefive;
+        }
+        objfivestring = JSON.stringify(objfive);
+        $("#addmergestatuscode").val(objfivestring);
         $.ajax({
             cache:false,
             url : "add_singel_data/",
@@ -656,7 +656,11 @@ ul {
     });
 
     //提交修改的数据
-    $("#changesubmitBtn2").click(function () {
+
+
+
+
+    $("#changesubmitBtn2").click(function go_change(){
         var objectone={};
         var o=document.querySelectorAll("input[name='change_headers_key']");
         var p=document.querySelectorAll("input[name='change_headers_value']");
@@ -671,6 +675,7 @@ ul {
         var objectthree={};
         var s=document.querySelectorAll("input[name='change_formdata_key']");
         var t=document.querySelectorAll("input[name='change_formdata_value']");
+        var test = document.getElementById("addmergebodydata");
         for(var y=0;y<s.length;y++){
             var keythree = s[y].value;
             var valuethree = t[y].value;
@@ -698,40 +703,37 @@ ul {
         }
         objectfivestring = JSON.stringify(objectfive);
         $("#changemergestatuscode").val(objectfivestring);
-    });
-    function go_change(id) {
-        $("#changesubmitBtn2").click(function (){
-            $.ajax({
-                cache: false,
-                url: "change_singel_data/",
-                dataType: 'text',
-                type: 'POST',
-                async: false,
-                data: {
-                    "id": id,
-                    "change_modelname": $("#changemodel").val(),
-                    "change_casename": $("#changecase").val(),
-                    "change_URL": $("#changeUrl").val(),
-                    "change_Method": $("#changeMethod").val(),
-                    "change_mergeheaders": $("#changemergeheaders").val(),
-                    "change_mergeformdatas": $("#changemergeformdatas").val(),
-                    "change_mergecheckdatas": $("#changemergecheckdatas").val(),
-                    "changemergestatuscode": $("#changemergestatuscode").val(),
-                    "change_charger": $("#changecharger").val(),
-                },
-                success: function (data) {
-                    alert("提交修改成功");
-                    window.location.reload();
-                },
-                error: function (data) {
-                    alert("数据重复/提交修改失败");
-                }
-            });
+        $.ajax({
+            cache: false,
+            url: "change_singel_data/",
+            dataType: 'text',
+            type: 'POST',
+            async: false,
+            data: {
+                "id": id,
+                "change_modelname": $("#changemodel").val(),
+                "change_casename": $("#changecase").val(),
+                "change_URL": $("#changeUrl").val(),
+                "change_Method": $("#changeMethod").val(),
+                "change_mergeheaders": $("#changemergeheaders").val(),
+                "change_mergeformdatas": $("#changemergeformdatas").val(),
+                "change_mergecheckdatas": $("#changemergecheckdatas").val(),
+                "changemergestatuscode": $("#changemergestatuscode").val(),
+                "change_charger": $("#changecharger").val(),
+            },
+            success: function (data) {
+                alert("提交修改成功");
+                window.location.reload();
+            },
+            error: function (data) {
+                alert("数据重复/提交修改失败");
+            }
         });
-    }
+    });
 
 
-    $(function () {
+
+$(function () {
         // 还能输入的字得个数
         var able_count = 600;
         // 是否可以发布留言
@@ -742,8 +744,6 @@ ul {
         var $main_area = $('.main-area');
         // 发布按钮
         var $release_btn = $('.release-btn');
-
-        // 输入框获取焦点
     $main_area.focus(function () {
         console.log("获取焦点");
         $(this).parent().addClass('outline');
@@ -793,10 +793,9 @@ ul {
                     borderColor: "#ffc09f"
                 })
             }
-        }
-    )
-    }
-    )})
+    })
+})
+
 </script>
 </body>
 </html>

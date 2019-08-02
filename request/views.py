@@ -113,8 +113,9 @@ def change_singel_api(request):
         newMergeheaders_data = json.loads(request.POST.get("change_mergeheaders",None))
         newMergeform_data = json.loads(request.POST.get("change_mergeformdatas", None))
         newMergecheck_data = json.loads(request.POST.get("change_mergecheckdatas", None))
+        newMergecheck_statuscode = json.loads(request.POST.get("changemergestatuscode",None))
         newCharger_data = request.POST.get("change_charger",None)
-        singel_Apis.objects.filter(productid=newccase_id).update(Product=newModelname_data, Apiname=newCasename_data, Apiurl=newUrl_data,
+        singel_Apis.objects.filter(productid=newccase_id).update(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data,
                                    Apiheader=newMergeheaders_data, Apimethod=newMethod_data,
                                     Apiformdata=newMergeform_data,
                                 Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)

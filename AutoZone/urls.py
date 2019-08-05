@@ -35,7 +35,7 @@ urlpatterns = [
     path('product_add_data/', views.product_add_data),
     path('create_product/delete_id/', views.product_delete_data),
     path('create_product/product_change_data/', views.product_change_data),
-    path('create_product/project_search_name/',views.product_search_data),
+    path('project_search_name/',views.product_search_data),
     path('product_test_speed/', views.product_test_speed),
     path('left/', views.left),
     path('welcome/', views.welcome),

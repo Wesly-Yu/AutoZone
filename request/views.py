@@ -201,12 +201,12 @@ def product_search_data(request):
     product_name = request.GET.get("productname")
     select = request.GET.get("select")
     if select!='2':
-        product_list = Create_product.objects.filter(Q(product_name__contains=product_name),Q(status=select)).order_by("-productid")
+        product_list = Create_product.objects.filter(Q(productname__contains=product_name),Q(status=select)).order_by("-productid")
     else:
-        product_list= Create_product.objects.filter(Q(product_name__contains=product_name)).order_by("-productid")
+        product_list= Create_product.objects.filter(Q(productname__contains=product_name)).order_by("-productid")
     paginator = Paginator(product_list,12)          #设置分页数
     products = paginator.page(1)
-    return render(request, "create_product.html", {"user": username, "products": products,"product_name":product_name,"select":select})
+    return render(request, "create_product.html", {"user": username, "products": products,"productname":product_name,"select":select})
 
 #删除创建的项目
 @login_required

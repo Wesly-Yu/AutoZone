@@ -319,7 +319,7 @@ ul {
                             <h6 class="modal-title" id="myModalLabel" style="color: #53245d; margin-left: 200px;font-size: 15px"><strong>删除后无法撤销，请确认</strong></h6>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                <button type="button" class="btn btn-primary" name="deleBtn" id="deleBtn" onclick="go_delete('{{step.productid}}')"  data-dismiss="modal"  style="background:#53245d;color:white;">删除</button>
+                                <button type="button" class="btn btn-primary" name="deleBtn" id="deleBtn" onclick="go_delete('{{step.productid}}')" data-dismiss="modal"  style="background:#53245d;color:white;">删除</button>
                             </div>
                         </div>
                     </div>
@@ -473,6 +473,7 @@ ul {
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
+    var codeMessage = "{{ codeMessage }}";
     //增加headers行列
     $(function () {
         $("#addheaders").click(function () {

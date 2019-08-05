@@ -77,6 +77,7 @@ def add_singel_api(request):
         newCasename_data = request.POST.get("casename",None)
         newUrl_data = request.POST.get("addURL",None)
         newMethod_data = request.POST.get("Method",None)
+        check_name_repeat = len(singel_Apis.objects.filter(Apiname=newCasename_data).values())
         newMergeheaders_data  = json.loads(request.POST.get("addmergeheaders",None))
         if (newMergeheaders_data=={'': ''}):
             newMergeheaders_data=None
@@ -102,8 +103,12 @@ def add_singel_api(request):
             newCharger_data=None
         else:
             newCharger_data=newCharger_data
-        singel_Apis.objects.create(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data, Apiheader=newMergeheaders_data, Apimethod=newMethod_data, Apiformdata=newMergeform_data, Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
-    return render(request, "singel_api_test.html", {"user": username, "steps": steps})
+        if check_name_repeat==0:
+            singel_Apis.objects.create(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data, Apiheader=newMergeheaders_data, Apimethod=newMethod_data, Apiformdata=newMergeform_data, Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
+            error_Message = ""
+        else:
+            error_Message="用例名称重复，新增失败"
+    return render(request, "singel_api_test.html", {"user": username, "steps": steps,"codeMessage":error_Message})
 
 #删除单一接口
 @login_required

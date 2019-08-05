@@ -14,7 +14,7 @@ from robotframework.set_langurage import switch_langrage
 
 def readwebcaseSQL(upperlevel_id):
     sql = "SELECT webtestlocation,webfindmethod,webkwargesone,webkwargestwo,webkwargesthree,webkwargesfour,webassertdata from webtest_webcasestep where Webcase_id="+upperlevel_id
-    coon = pymysql.connect(user='root', password='test123456', db='autotest', port=3306, host='127.0.0.1',
+    coon = pymysql.connect(user='root', password='a12345678', db='autozone', port=3306, host='127.0.0.1',
                            charset='utf8')
     cursor = coon.cursor()
     webcasestepcheck = cursor.execute(sql)  #读取页面上的执行步骤
@@ -35,7 +35,7 @@ def readwebcaseSQL(upperlevel_id):
 
 def readSQLCounts(upperlevel_id):
     sql2 = "SELECT count(*)from webtest_webcasestep where Webcase_id=" + upperlevel_id
-    coon = pymysql.connect(user='root', password='test123456', db='autotest', port=3306, host='127.0.0.1',
+    coon = pymysql.connect(user='root', password='a12345678', db='autozone', port=3306, host='127.0.0.1',
                            charset='utf8')
     cursor = coon.cursor()
     get_counts = cursor.execute(sql2)  # 读取页面上的执行步骤数量

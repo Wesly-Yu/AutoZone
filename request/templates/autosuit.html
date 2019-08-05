@@ -212,196 +212,21 @@ ul {
 }
 </style>
 <body>
-	<!-- 发布留言的主体 -->
-	<div class="wrap">
-		<div class="wrap-head">
-			<div class="head-logo">
-				<img src="img/xx.png" />
-			</div>
-			<div class="head-txt">
-				<a class="title-txt" href="javascript:void(0)">置办年货省省省！红包在手年货无忧！点击领取年货红包&nbsp;&nbsp;&nbsp;热门微博</a>
-			</div>
-		</div>
-		<div class="main-txt">
-			<textarea  rows="" cols="" class="main-area" id="comments"></textarea>
-		</div>
-		<div class="warp-footer">
-			<div class="warp-icon-cont">
-				<ul>
-					<li><img src="img/wb1.png" alt="" />
-						<a href="javascript:void(0)">表情</a>
-					</li>
-					<li><img src="img/wb2.png" alt="" />
-						<a href="javascript:void(0)">图片</a>
-					</li>
-					<li><img src="img/wb3.png" alt="" />
-						<a href="javascript:void(0)">视频</a>
-					</li>
-					<li><img src="img/wb4.png" alt="" />
-						<a href="javascript:void(0)">话题</a>
-					</li>
-					<li><img src="img/wb5.png" alt="" />
-						<a href="javascript:void(0)">文章</a>
-					</li>
-				</ul>
-			</div>
-			<div class="warp-footer-btns">
-				<div class="release-btn">
-					<a href="javascript:void(0)" id="addsubmitBtn">发布</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="show">
-	</div>
+<div class="page-header" >
+    <form class="navbar-form" method="GET" action="/project_search_name/">
+        <div class="form-group">
+            <input id="ipt2" name="project_name" type="text" placeholder="项目名" class="form-control" value={{ project_name }}>
+            <select id="select1" name='select' class="form-control" >
+                <option  value="2"  class="select">状态</option>
+                <option value="1" class="select">生效中</option>
+                <option value="0" class="select">已禁用</option>
+            </select>
+        </div>
+        <button id="btn4" type="submit" class="layui-btn" >搜索</button>
+        {% csrf_token %}
+    </form>
+</div>
 </body>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-    // 匿名函数包裹，防止外界操作的修改
-
-$(function () {
-	// 还能输入的字得个数
-	var able_count = 140;
-	// 是否可以发布留言
-	var release_able = false;
-	// 右上角文字
-	var $title_txt = $('.title-txt');
-	// 留言框
-	var $main_area = $('.main-area');
-	// 发布按钮
-	var $release_btn = $('.release-btn');
-
-	// 输入框获取焦点
-	$main_area.focus(function () {
-		console.log("获取焦点");
-		$(this).parent().addClass('outline');
-		$title_txt.addClass('title');
-		if (able_count >= 0) {
-			$title_txt.html("还可以输入" + able_count + "个字");
-		} else {
-			$title_txt.html("你以超出" + (-able_count) + "个字");
-		}
-	})
-
-	// 输入框失去焦点
-	$main_area.blur(function () {
-		console.log("失去焦点");
-		$(this).parent().removeClass('outline');
-		$title_txt.removeClass('title');
-		$title_txt.html("置办年货省省省！红包在手年货无忧！点击领取年货红包&nbsp;&nbsp;&nbsp;热门微博");
-	})
-
-	// 输入框文本修改
-	$main_area.on('input', function () {
-		console.log("文本修改");
-		// 剩余可输入的字个数
-		able_count = 140 - $main_area.val().length;
-		// console.log(able_count);
-		// 根据可输入字的个数决定右上角文本的提示 与 是否能发布的状态
-		if (able_count >= 0 && able_count <= 140) {
-			$title_txt.html("还可以输入" + able_count + "个字");
-			if (able_count != 140) {
-				release_able = true;
-			} else {
-				release_able = false;
-			}
-		} else {
-			$title_txt.html("你以超出" + (-able_count) + "个字");
-			release_able = false;
-		}
-		// 根据发布状态决定发布按钮的样式
-		if (release_able) {
-			$release_btn.css({
-				backgroundColor: "orange",
-				borderColor: "orange"
-			})
-		} else {
-			$release_btn.css({
-				backgroundColor: "#ffc09f",
-				borderColor: "#ffc09f"
-			})
-		}
-
-	})
-
-	// 发布事件
-	$release_btn.click(function () {
-        var test = document.getElementById("comments");
-        var text2 = test.value;
-        console.info(text2);
-		console.log("发布");
-		if (release_able) {
-			console.log('可以发布');
-			// 创建show对象的各个部位
-			var $showContent = $('<div class="show-content"></div>'),
-			$showName = $('<div class="show-name"></div>'),
-			$showTxt = $('<div class="show-txt"></div>'),
-			$showTime = $('<div class="show-time"></div>'),
-			$showClose = $('<div class="show-close"></div>'),
-			$showP = $('<p class=""></p>');
-
-			var date = new Date();
-			// 设置，对象结构内内容
-			$showName.text("XxXx");
-			$showP.text($main_area.val());
-			$showTime.text(date);
-			$showClose.text("x");
-			// 添加进入主结构
-			$showTxt.append($showP);
-			$showContent.append($showName);
-			$showContent.append($showTxt);
-			$showContent.append($showTime);
-			$showContent.append($showClose);
-
-			// 向所有匹配元素内部的开始处插入内容
-			$('.show').prepend($showContent);
-
-			// 添加动画
-			// 位置从输入框处下移
-			$showContent.css({
-				top: '-150px'
-			})
-			$showContent.animate({
-				top: 0
-			}, 200)
-
-			// 删除事件
-			$showClose.click(function () {
-				// 显示插入的索引位置
-				// console.log($(this).parent().index());
-				// console.log($showContent.index());
-
-
-				// 删除操作为顺便
-				// $showContent.remove();
-
-				// 使用删除动画，创建效果
-				$showContent.animate({
-					height: 0
-				}, 200, function () {
-					// 动画结束后将自身从dom中移除
-					$showContent.remove();
-				})
-
-
-			})
-
-			// 发布成功后收尾工作
-			$main_area.val(""); //输入框清空
-			able_count = 140;  //输入框可输入内容数重置
-			release_able = false;
-			$release_btn.css({
-				backgroundColor: '#ffc09f',
-				borderColor: '#ffc09f'
-			})  //按钮点击事件重置
-
-		}
-	})
-});
-$("#release-btn").click(function () {
-
-})
-    {#$("#addsubmitBtn").click(function () {#}
-</script>
 </html>

@@ -52,8 +52,9 @@
 <div class="page-header" >
     <form class="navbar-form" method="GET" action="/project_search_name/">
         <div class="form-group" style="margin-left: 30px; padding-top: 60px">
-            <input id="ipt2" name="project_name" type="text" placeholder="项目" class="form-control">
-            <select id="select1" name='select' class="form-control" ><option  value="2"  class="select">状态</option><option value="1" class="select">启动</option><option value="0" class="select">关闭</option>
+            <input id="ipt2" name="project_name" type="text" placeholder="项目" class="form-control" value={{ productname }}>
+            <select id="select1" name='select' class="form-control">
+                <option  value="2" class="select">状态</option>
                 <option value="1" class="select">开启</option>
                 <option value="0" class="select">关闭</option>
             </select>
@@ -125,9 +126,9 @@
         {% for product in products %}
         <tr>
             <td id="che1"><input type="checkbox" name="rowCheck" ></td>
-            <td>{{ product.productid }}</td>
+            <td titlevalue={{ product.productid }}>{{ product.productid }}</td>
             <td>{{ product.modelname }}</td>
-            <td>{{ product.productname }}</td>
+            <td titlevalue={{ project_name }}>{{ product.productname }}</td>
             <td>{{ product.tester }}</td>
             <td>{{ product.developer }}</td>
             <td>{{ product.productdesc }}</td>

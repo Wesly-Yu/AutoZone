@@ -13,6 +13,7 @@ from  request.models import process_apis_task
 from django.contrib import messages
 import json
 import os
+from django.db.models import Q
 import pymysql
 from django.core.paginator import  Paginator, EmptyPage, PageNotAnInteger
 import time
@@ -108,7 +109,8 @@ def add_singel_api(request):
             error_Message = ""
         else:
             error_Message="用例名称重复，新增失败"
-    return render(request, "singel_api_test.html", {"user": username, "steps": steps,"codeMessage":error_Message})
+    return render(request, "singe_api_test.html", {"user": username, "steps": steps,"codeMessage":error_Message})
+
 
 #删除单一接口
 @login_required
@@ -158,6 +160,8 @@ def change_singel_api(request):
                                 Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
     return render(request, "singel_api_test.html", {"user": username, "steps": steps})
 
+
+#项目页面分页功能
 @login_required
 def create_product(request):
     username = request.session.get('user', '')
@@ -174,6 +178,8 @@ def create_product(request):
         products = paginator.page(paginator.num_pages)   #如果输入的的页数不在系统的页数中，则显示最后一页
     return render(request, "create_product.html", {"user":username, "products": products})
 
+
+#添加项目说明
 @login_required
 def product_add_data(request):
     username = request.session.get('user')
@@ -188,7 +194,21 @@ def product_add_data(request):
         Create_product.objects.get_or_create(modelname=Model_Name, productname=Product_Name, tester=Tester, developer=Developer, productdesc=Productdesc,status=Status)
     return render(request, "create_product.html", {"user": username, "products": products})
 
+#搜索项目名称功能
+@login_required
+def product_search_data(request):
+    username = request.session.get('user')
+    product_name = request.GET.get("productname")
+    select = request.GET.get("select")
+    if select!='2':
+        product_list = Create_product.objects.filter(Q(product_name__contains=product_name),Q(status=select)).order_by("-productid")
+    else:
+        product_list= Create_product.objects.filter(Q(product_name__contains=product_name)).order_by("-productid")
+    paginator = Paginator(product_list,12)          #设置分页数
+    products = paginator.page(1)
+    return render(request, "create_product.html", {"user": username, "products": products,"product_name":product_name,"select":select})
 
+#删除创建的项目
 @login_required
 def product_delete_data(request):
     username = request.session.get('user', '')

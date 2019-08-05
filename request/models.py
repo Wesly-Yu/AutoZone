@@ -40,11 +40,11 @@ class singel_Apis(models.Model):
     Apiname = models.CharField('接口名称', max_length=100)
     Apiurl = models.CharField('Url地址', max_length=200,null=True)
     Apiheader = models.CharField('请求头参数', max_length=800,null=True)
-    Apiformdata = models.CharField('表单参数', max_length=800)
+    Apiformdata = models.CharField('表单参数', max_length=800,null=True)
     Apimethod = models.CharField('请求方式', max_length=20, default='GET')
-    Apiexpectresult = models.CharField('预期结果', max_length=200)
-    Apistatuscode = models.CharField('状态码',max_length=200)
-    Apischarger = models.CharField('负责人', max_length=50)
+    Apiexpectresult = models.CharField('预期结果', max_length=200,null=True)
+    Apistatuscode = models.CharField('状态码',max_length=200,null=True)
+    Apischarger = models.CharField('负责人', max_length=50,null=True)
     create_time = models.DateTimeField('创建时间', auto_now=True,null=True)
     def __str__(self):
         return self.Apiname

@@ -78,13 +78,25 @@ def add_singel_api(request):
         newUrl_data = request.POST.get("addURL",)
         newMethod_data = request.POST.get("Method",)
         newMergeheaders_data  = json.loads(request.POST.get("addmergeheaders",))
+        if (len(newMergeheaders_data)==1):
+            newMergeheaders_data=None
+        else:
+            newMergeheaders_data=newMergeheaders_data
         newMergeform_data = json.loads(request.POST.get("addmergeformdatas",))
-        # if (type(newMergeform_data)=='dict'):
-        #     newMergeform_data=newMergeform_data
-        # else:
-        #     newMergeform_data=eval(newMergeform_data)
+        if (len(newMergeform_data)==1):
+            newMergeform_data=None
+        else:
+            newMergeform_data=newMergeform_data
         newMergecheck_data = json.loads(request.POST.get("addmergecheckdatas",))
+        if (len(newMergecheck_data) == 1):
+            newMergecheck_data = None
+        else:
+            newMergecheck_data = newMergecheck_data
         newMergecheck_statuscode = json.loads(request.POST.get("addmergestatuscode"))
+        if (len(newMergecheck_statuscode)==1):
+            newMergecheck_statuscode=None
+        else:
+            newMergecheck_statuscode=newMergecheck_statuscode
         newCharger_data = request.POST.get("charger",)
         singel_Apis.objects.create(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data, Apiheader=newMergeheaders_data, Apimethod=newMethod_data, Apiformdata=newMergeform_data, Apiexpectresult=newMergecheck_data, Apischarger=newCharger_data)
     return render(request, "singel_api_test.html", {"user": username, "steps": steps})
@@ -104,16 +116,32 @@ def del_singel_api(request):
 def change_singel_api(request):
     username = request.session.get('user')
     steps = singel_Apis.objects.all()
-    if request.is_ajax():
+    if request.method == "POST":
         newccase_id = request.POST.get("id", )
         newModelname_data = request.POST.get("change_modelname",None)
         newCasename_data = request.POST.get("change_casename", None)
         newUrl_data = request.POST.get("change_URL", None)
         newMethod_data = request.POST.get("change_Method", None)
         newMergeheaders_data = json.loads(request.POST.get("change_mergeheaders",None))
+        if (len(newMergeheaders_data)==1):
+            newMergeheaders_data=None
+        else:
+            newMergeheaders_data=newMergeheaders_data
         newMergeform_data = json.loads(request.POST.get("change_mergeformdatas", None))
+        if (len(newMergeform_data)==1):
+            newMergeform_data=None
+        else:
+            newMergeform_data=newMergeform_data
         newMergecheck_data = json.loads(request.POST.get("change_mergecheckdatas", None))
+        if (len(newMergecheck_data)==1):
+            newMergecheck_data=None
+        else:
+            newMergecheck_data=newMergecheck_data
         newMergecheck_statuscode = json.loads(request.POST.get("changemergestatuscode",None))
+        if (len(newMergecheck_statuscode)==1):
+            newMergecheck_statuscode=None
+        else:
+            newMergecheck_statuscode=newMergecheck_statuscode
         newCharger_data = request.POST.get("change_charger",None)
         singel_Apis.objects.filter(productid=newccase_id).update(Product=newModelname_data,Apistatuscode=newMergecheck_statuscode, Apiname=newCasename_data, Apiurl=newUrl_data,
                                    Apiheader=newMergeheaders_data, Apimethod=newMethod_data,

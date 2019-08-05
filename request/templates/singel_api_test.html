@@ -324,7 +324,7 @@ ul {
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-default sm" onclick="go_change('{{step.productid}}')" data-toggle="modal" data-target="#myModal3">编辑</button>
+                <button class="btn btn-default sm"  data-toggle="modal" data-target="#myModal3">编辑</button>
                 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -352,7 +352,7 @@ ul {
                                             <label for="changeheaders">Headers</label>
                                             <ul id="changeheaders" style="list-style-type: none">
                                                 <li>
-                                                    <input id="change_headers_data"  class="addheaders" name="change_headers_key" type="text"  placeholder="Key"  /><input  class="addheaders" name="change_headers_value"  type="text"  placeholder="Value" />
+                                                    <input id="change_headers_data"  class="changeheaders" name="change_headers_key" type="text"  placeholder="Key"/><input  class="addheaders" name="change_headers_value"  type="text"  placeholder="Value"/>
                                                     <input id="change_addheaders" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="+">
                                                     <input id="change_delheaders" type="button" class="btn btn-default"  style="height:24px;width:24px;text-align:center; margin:0px; padding:0px;" value="-">
                                                     <input id="changemergeheaders" type="text" style="display:None" name="changemergeheaders"/>
@@ -418,7 +418,7 @@ ul {
                                         <input type="text" name="changecharger" class="form-control" id="changecharger" placeholder="负责人">
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                            <button type="submit"  class="btn btn-default" id="changesubmitBtn2" style="background:#53245d;color:white;">提交</button>
+                                            <button type="submit" class="btn btn-default" id="changesubmitBtn2" style="background:#53245d;color:white;" onclick="go_change('{{step.productid}}')">提交</button>
                                         </div>
                                      {% csrf_token %}
                                     </form>
@@ -656,33 +656,42 @@ ul {
     });
 
     //提交修改的数据
-
-
-
-
-    $("#changesubmitBtn2").click(function go_change(){
+    function go_change(id){
         var objectone={};
         var o=document.querySelectorAll("input[name='change_headers_key']");
         var p=document.querySelectorAll("input[name='change_headers_value']");
-        for(var w=0;w<o.length;w++){
+        if(o==""){
+            objectonestring=null;
+            $("#changemergeheaders").val(objectonestring);
+        }
+        else {
+            for(var w=0;w<o.length;w++){
             var changekeyone = o[w].value;
             var changevalueone = p[w].value;
             objectone[changekeyone]=changevalueone;
+            }
+            objectonestring = JSON.stringify(objectone);
+            $("#changemergeheaders").val(objectonestring);
         }
-        objectonestring = JSON.stringify(objectone);
-        $("#changemergeheaders").val(objectonestring);
-        console.info(objectonestring);
+
         var objectthree={};
         var s=document.querySelectorAll("input[name='change_formdata_key']");
         var t=document.querySelectorAll("input[name='change_formdata_value']");
-        var test = document.getElementById("addmergebodydata");
-        for(var y=0;y<s.length;y++){
-            var keythree = s[y].value;
-            var valuethree = t[y].value;
-            objectthree[keythree]=valuethree;
+        var testchange = document.getElementById("changemergebodydata");
+        if (testchange!==""){
+            var text3 = testchange.value;
+            objectthree = JSON.stringify(text3);
+            $("#changemergeformdatas").val(objectthree)
+            }
+        else {
+            for(var y=0;y<s.length;y++){
+                var keythree = s[y].value;
+                var valuethree = t[y].value;
+                objectthree[keythree]=valuethree;
+                objectthreestring = JSON.stringify(objectthree);
+                $("#changemergeformdatas").val(objectthreestring);
+            }
         }
-        objectthreestring = JSON.stringify(objectthree);
-        $("#changemergeformdatas").val(objectthreestring);
         var objectfour={};
         var u=document.querySelectorAll("input[name='change_checkdata_key']");
         var v=document.querySelectorAll("input[name='change_checkdata_value']");
@@ -729,7 +738,7 @@ ul {
                 alert("数据重复/提交修改失败");
             }
         });
-    });
+    };
 
 
 
@@ -772,7 +781,7 @@ $(function () {
             // 根据可输入字的个数决定右上角文本的提示 与 是否能发布的状态
             if (able_count >= 0 && able_count <= 600) {
                 $title_txt.html("还可以输入" + able_count + "个字");
-                if (able_count != 600) {
+                if(able_count != 600) {
                     release_able = true;
                 } else {
                     release_able = false;

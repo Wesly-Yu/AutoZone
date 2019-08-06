@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!--<link rel="stylesheet" href="bootstrap-fileinput/css/fileinput.min.cssbootstrap-fileinput/js/fileinput.min.js">-->
-
+    <link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/highcharts.js"></script>
+    <script src="js/exporting.js"></script>
 </head>
 <style type="text/css">
     h4{
@@ -29,6 +31,11 @@
             position: relative;
         }
     }
+    #container{
+        width: 600px;
+        height: 400px;
+        margin-top: 100px;
+    }
 </style>
 <body>
 <nav  class="navbar navbar-fixed-top navbar-has-shadow">
@@ -45,46 +52,50 @@
 <div class="col-sm-offset-2">
     <h4 href="#">欢迎您，来到 AutoZoneV1.0</h4>
 </div>
-<div class="col-md- col-md-3 main" style="padding-top: 30px">
-    <div class="thumbnail" >
-        <img src="{% static 'img/task.jpg' %}"   alt="">
-        <div class="caption">
-            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
-        </div>
-        </img>
-    </div>
-</div>
-<div class="col-md-3 col-md-3 main" style="padding-top: 30px">
-    <div class="thumbnail" >
-        <img src="{% static 'img/error.jpg' %}"  alt="">
-        <div class="caption">
-            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
-        </div>
-        </img>
-    </div>
-</div>
-<div class="col-md-4 col-md-3 main" style="padding-top: 30px">
-    <div class="thumbnail">
-        <img src="{% static 'img/case.jpg' %}"  alt="">
-        <div class="caption">
-            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
-        </div>
-        </img>
-    </div>
-</div>
-<div class="col-md-5 col-md-3 main" style="padding-top: 30px">
-    <div class="thumbnail" >
-        <img src="{% static 'img/feedback.jpg' %}"  alt="">
-        <div class="caption">
-            <p><a href="#" class="btn btn-primary btn-xs" role="button">点击进入</a> </p>
-        </div>
-        </img>
-    </div>
-</div>
-</div>
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div id="container"  class="col-sm-offset-2"></div>
+<script>
+var chart = Highcharts.chart('container',{
+chart: {
+    type: 'column'
+},
+title: {
+    text: '当月测试用例执行结果'
+},
+xAxis: {
+    categories: [
+        '一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'
+    ],
+    crosshair: true
+},
+yAxis: {
+    min: 0,
+    title: {
+        text: '数量'
+    }
+},
+tooltip: {
+    // head + 每个 point + footer 拼接成完整的 table
+    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    '<td style="padding:0"><b>{point.y:1f}</b></td></tr>',
+    shared: true,
+    useHTML: true
+},
+plotOptions: {
+    column: {
+        borderWidth: 0
+    }
+},
+series: [{
+    name: '成功',
+    color:'#02F78E',
+    data: [401, 419, 400, 410, 415, 412, 420, 411, 412, 417]
+}, {
+    name: '失败',
+    color:'#FF9224',
+    data: [19, 1, 20, 10, 5, 8, 0, 9, 8, 3]
+}]
+});
+</script>
 </body>
 </html>

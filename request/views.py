@@ -68,6 +68,16 @@ def singel_api_test(request):
         steps = paginator.page(paginator.num_pages)  # 如果输入的的页数不在系统的页数中，则显示最后一页
     return render(request, "singel_api_test.html", {"user": username, "steps": steps})
 
+
+#搜索接口名称功能
+@login_required
+def search_api_name(request):
+    username = request.session.get('user', '')
+    steps = singel_Apis.objects.get_queryset().order_by('productid')
+    
+    return  render(request,"singel_api_test.html",{"user": username, "steps": steps})
+
+
 #添加单一的接口
 @login_required
 def add_singel_api(request):
@@ -204,7 +214,7 @@ def product_search_data(request):
         product_list = Create_product.objects.filter(Q(productname__contains=product_name),Q(status=select)).order_by("-productid")
     else:
         product_list= Create_product.objects.filter(Q(productname__contains=product_name)).order_by("-productid")
-    paginator = Paginator(product_list,12)          #设置分页数
+    paginator = Paginator(product_list,12)              #设置分页数
     products = paginator.page(1)
     return render(request, "create_product.html", {"user": username, "products": products,"productname":product_name,"select":select})
 

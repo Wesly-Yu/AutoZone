@@ -7,8 +7,8 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="js/highcharts.js"></script>
-    <script src="js/exporting.js"></script>
+    <script src="../static/JS/highcharts.js"></script>
+    <script src="../static/JS/exporting.js"></script>
 </head>
 <style type="text/css">
     h4{
@@ -31,31 +31,17 @@
             position: relative;
         }
     }
-    @media only screen and (min-width: 767px){
-        canvas{
-
-            float: right !important;
-            position: relative;
-        }
-    }
-
-
-
     #container{
         width: 500px;
         height: 400px;
         margin-top: 80px;
         font-family: "Microsoft YaHei", "宋体", "Segoe UI", "Lucida Grande", Helvetica, Arial, sans-serif, FreeSans, Arimo;
     }
-    /*
-    h3{
-        position: relative;
-        font-size: 18px;
-        margin-top: 90px;
-        margin-left: 50px;
-        font-family: "Microsoft YaHei", "宋体", "Segoe UI", "Lucida Grande", Helvetica, Arial, sans-serif, FreeSans, Arimo;
+    @media only screen and (min-width: 320px){
+        #row2{
+            position: relative;
+        }
     }
-    /*
 
 </style>
 <body>
@@ -74,8 +60,9 @@
     <h4 href="#">欢迎您，来到 AutoZoneV1.0</h4>
 </div>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="row2">
         <div id="container"  class="col-md-4 col-md-offset-2"></div>
+        <div id="squre"  class="col-md-4 col-md-offset-1"></div>
     </div>
 </div>
 <script>
@@ -122,21 +109,6 @@ series: [{
     data: [19, 1, 20, 10, 5, 8, 0, 9, 8, 3]
 }]
 });
-//初始化
-(function(){
-    var canvas = document.createElement('canvas');
-    document.body.appendChild(canvas);
-    canvas.height = mH;
-    canvas.width = mW;
-    mCtx = canvas.getContext('2d');
-
-    drawPolygon(mCtx); // 绘制多边形边
-    drawLines(mCtx); //顶点连线
-    drawText(mCtx); // 绘制文本
-    drawRegion(mCtx);  // 绘制数据
-    drawCircle(mCtx);  // 画数据圆点
-  })();
-
     var mW = 400;
     var mH = 400;
     var mData = [['UI自动化', 77],['接口自动化', 72],['单元测试', 46],['手动测试', 50]];
@@ -151,8 +123,9 @@ series: [{
 
     //初始化
     (function(){
+        var squre = document.getElementById("squre");
     var canvas = document.createElement('canvas');
-    document.body.appendChild(canvas);
+    squre.appendChild(canvas);
     canvas.height = mH;
     canvas.width = mW;
     mCtx = canvas.getContext('2d');

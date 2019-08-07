@@ -1,139 +1,170 @@
 <!DOCTYPE html>
-<html style="height: 100%">
-   <head>
-       <meta charset="utf-8">
-   </head>
-   <body style="height: 100%; margin: 0">
-       <div id="container" style="height: 100%"></div>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
-       <script type="text/javascript">
-var dom = document.getElementById("container");
-var myChart = echarts.init(dom);
-var app = {};
-option = null;
-option = {
-    title: {
-        text: '分布占比图'
-    },
-    legend: {
-    },
-    radar: [
-        {
-            indicator: [
-                { text: '', max: 0 },
-                { text: '', max: 0 },
-                { text: '', max: 0 },
-                { text: '', max: 0 },
-            ],
-            center: ['25%', '50%'],
-            radius: 0,
-            startAngle: 90,
-            splitNumber: 4,
-            shape: 'circle',
-            name: {
-                formatter:'',
-                textStyle: {
-                    color:''
-                }
-            },
-            splitArea: {
-                areaStyle: {
-                    shadowBlur: 10
-                }
-            },
-            axisLine: {
-                lineStyle: {
-                    color: ''
-                }
-            },
-            splitLine: {
-                lineStyle: {
-                    color: ''
-                }
-            }
-        },
-        {
-            indicator: [
-                { text: '接口', max: 150 },
-                { text: 'UI', max: 150 },
-                { text: '手动', max: 150 },
-                { text: '性能', max: 120 },
-            ],
-            center: ['75%', '50%'],
-            radius: 120
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蜘蛛图canvas</title>
+    <style type="text/css">
+        canvas{
+            margin-top: -20px;
+            margin-left: 410px;
         }
-    ],
-    series: [
-        {
-            name: '雷达图',
-            type: 'radar',
-            itemStyle: {
-                emphasis: {
-                    // color: 各异,
-                    lineStyle: {
-                        width: 4
-                    }
-                }
-            },
-            data: [
-                {
-                    value: [60, 5, 0.30, -100, 1500],
-                    areaStyle: {
-                        normal: {
-                            color: 'rgba(255, 255, 255, 0.5)'
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            name: '分布图',
-            type: 'radar',
-            radarIndex: 1,
-            data: [
-                {
-                    value: [120, 118, 130, 100],
-                    label: {
-                        normal: {
-                            show: true,
-                            formatter:function(params) {
-                                return params.value;
-                            }
-                        }
-                    }
-                },
-                {
-                    value: [90, 113, 140, 30],
-                    areaStyle: {
-                        normal: {
-                            opacity: 0.9,
-                            color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
-                                {
-                                    color: '#B8D3E4',
-                                    offset: 0
-                                },
-                                {
-                                    color: '#72ACD1',
-                                    offset: 1
-                                }
-                            ])
-                        }
-                    }
-                }
-            ]
+        h3{
+            margin-left: 900px;
+            margin-top: 60px;
         }
-    ]
-};
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
-}
-       </script>
-   </body>
+    </style>
+</head>
+<body>
+<h3>执行用例数与失败比例</h3>
+<script type="text/javascript">
+    //初始化
+  (function(){
+    var canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+    canvas.height = mH;
+    canvas.width = mW;
+    mCtx = canvas.getContext('2d');
+
+    drawPolygon(mCtx); // 绘制多边形边
+    drawLines(mCtx); //顶点连线
+    drawText(mCtx); // 绘制文本
+    drawRegion(mCtx);  // 绘制数据
+    drawCircle(mCtx);  // 画数据圆点
+  })();
+
+    var mW = 400;
+    var mH = 400;
+    var mData = [['UI', 77],['接口', 72],['性能', 46],['手动', 50]];
+    var mCount = mData.length; //边数
+    var mCenter = mW /2; //中心点
+    var mRadius = mCenter - 100; //半径(减去的值用于给绘制的文本留空间)
+    var mAngle = Math.PI * 2 / mCount; //角度
+    var mCtx = null;
+    var mColorPolygon = '#E0E0E0'; //多边形颜色
+    var mColorLines = '#E0E0E0'; //顶点连线颜色
+    var mColorText = '#3C3C3C';
+
+    //初始化
+    (function(){
+    var canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+    canvas.height = mH;
+    canvas.width = mW;
+    mCtx = canvas.getContext('2d');
+
+    drawPolygon(mCtx);
+    drawLines(mCtx);
+    drawText(mCtx);
+    drawRegion(mCtx);
+    drawCircle(mCtx);
+    })();
+
+    // 绘制多边形边
+    function drawPolygon(ctx){
+    ctx.save(); // save the default state
+
+    ctx.strokeStyle = mColorPolygon;
+    var r = mRadius/ mCount; //单位半径
+    //画6个圈
+    for(var i = 0; i < mCount; i ++){
+      ctx.beginPath(); //开始路径
+      var currR = r * ( i + 1); //当前半径
+      //画6条边
+      for(var j = 0; j < mCount; j ++) {
+        var x = mCenter + currR * Math.cos(mAngle * j);
+        var y = mCenter + currR * Math.sin(mAngle * j);
+
+        console.log('x:' + x, 'y:' + y);
+        ctx.lineTo(x, y);
+      }
+      ctx.closePath();  //闭合路径
+      ctx.stroke();
+    }
+
+    ctx.restore(); // restore to the default state
+    }
+
+    //顶点连线
+    function drawLines(ctx){
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.strokeStyle = mColorLines;
+
+    for(var i = 0; i < mCount; i ++){
+      var x = mCenter + mRadius * Math.cos(mAngle * i);
+      var y = mCenter + mRadius * Math.sin(mAngle * i);
+
+      ctx.moveTo(mCenter, mCenter);
+      ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+
+    ctx.restore();
+    }
+
+    //绘制文本
+    function drawText(ctx){
+    ctx.save();
+
+    var fontSize = mCenter / 12;
+    ctx.font = fontSize + 'px Microsoft Yahei';
+    ctx.fillStyle = mColorText;
+
+    for(var i = 0; i < mCount; i ++){
+      var x = mCenter + mRadius * Math.cos(mAngle * i);
+      var y = mCenter + mRadius * Math.sin(mAngle * i);
+
+      if( mAngle * i >= 0 && mAngle * i <= Math.PI / 2 ){
+        ctx.fillText(mData[i][0], x, y + fontSize);
+      }else if(mAngle * i > Math.PI / 2 && mAngle * i <= Math.PI){
+        ctx.fillText(mData[i][0], x - ctx.measureText(mData[i][0]).width, y + fontSize);
+      }else if(mAngle * i > Math.PI && mAngle * i <= Math.PI * 3 / 2){
+        ctx.fillText(mData[i][0], x - ctx.measureText(mData[i][0]).width, y);
+      }else{
+        ctx.fillText(mData[i][0], x, y);
+      }
+
+    }
+
+    ctx.restore();
+    }
+
+    //绘制数据区域
+    function drawRegion(ctx){
+    ctx.save();
+
+    ctx.beginPath();
+    for(var i = 0; i < mCount; i ++){
+      var x = mCenter + mRadius * Math.cos(mAngle * i) * mData[i][1] / 100;
+      var y = mCenter + mRadius * Math.sin(mAngle * i) * mData[i][1] / 100;
+
+      ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(135,206,235, 0.8)';
+    ctx.fill();
+
+    ctx.restore();
+    }
+    //画点
+    function drawCircle(ctx){
+    ctx.save();
+
+    var r = mCenter / 18;
+    for(var i = 0; i < mCount; i ++){
+      var x = mCenter + mRadius * Math.cos(mAngle * i) * mData[i][1] / 100;
+      var y = mCenter + mRadius * Math.sin(mAngle * i) * mData[i][1] / 100;
+
+      ctx.beginPath();
+      ctx.arc(x, y, r/4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(70,130,180,0.8)';
+      ctx.fill();
+    }
+
+    ctx.restore();
+    }
+</script>
+</body>
 </html>

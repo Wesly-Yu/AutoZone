@@ -2,9 +2,9 @@
 {% load static %}
 <html lang="zh-CN">
 <head>
-    <title>Example用例执行报告</title>
-    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <title>接口用例执行报告</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
     <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
 <style type="text/css" media="screen">
@@ -100,6 +100,14 @@
                 /*height: auto;*/
                 /*margin: -15px 0 0 0;*/
     /*}*/
+    #container2{
+        position: relative;
+        margin-left: 80px;
+    }
+    #container3{
+        position: relative;
+        margin-left: 80px;
+    }
 </style>
 </head>
 <body>
@@ -117,42 +125,45 @@
         </div>
     </div>
 </div>
-<div class="container" style="margin-top:-100px;margin-right: 440px">
-    <div class="btn-group btn-group-sm" style="margin-top: -50px">
-    <button class="btn btn-info" onclick='javascript:showCase(2)'>全部</button>
-    <button class="btn btn-success" onclick='javascript:showCase(0)'>成功</button>
-    <button class="btn btn-danger" onclick='javascript:showCase(1)'>失败</button>
-    <button class="btn btn-warning" onclick='javascript:showCase(2)'>错误</button>
+<div class='row'>
+    <div class="container-fluid col-md-2 col-sm-offset-0" id="container3">
+        <div class="btn-group btn-group-sm">
+            <button class="btn btn-success" onclick='javascript:showCase(0)'>成功</button>
+            <button class="btn btn-danger" onclick='javascript:showCase(1)'>失败</button>
+            <button class="btn btn-warning" onclick='javascript:showCase(2)'>错误</button>
+        </div>
     </div>
 </div>
-<table class="table table-bordered table-striped" style="width: 1450px;margin-left: 40px;margin-top: -120px;padding-bottom: 30px">
-    <colgroup>
-        <col align='left' />
-        <col align='right' />
-        <col align='right' />
-        <col align='right' />
-        <col align='right' />
-        <col align='right' />
-    </colgroup>
-    <tr id='header_row'>
-        <th>测试套件/测试用例</th>
-        <th>查看日志</th>
-        <th style="width: 250px" id="task_result">测试结果</th>
-        <th style="width: 120px">结束时间</th>
-
-    </tr>
-    <tbody>
-    <tr id="result">
-        {% for task in tasks %}
-        <td style="font-size: 12px">{{task.task_id}}/{{task.task_modelname}}/{{task.task_casename}}</td>
-        <td>{{task.task_log}}</td>
-        <td style="font-size: 15px;text-align: center">{{task.task_result}}</td>
-        <td>{{task.update_time}}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+<div class='row'>
+    <div class="container col-md-11 col-sm-offset-0" id="container2">
+        <table  class="table table-bordered table-striped" >
+            <colgroup>
+                <col align='left' />
+                <col align='right' />
+                <col align='right' />
+                <col align='right' />
+                <col align='right' />
+                <col align='right' />
+            </colgroup>
+            <tr id='header_row'>
+                <th>测试套件/测试用例</th>
+                <th>查看日志</th>
+                <th style="width: 250px" id="task_result">测试结果</th>
+                <th style="width: 120px">结束时间</th>
+            </tr>
+            <tbody>
+                <tr id="result">
+                    {% for task in tasks %}
+                    <td style="font-size: 12px">{{task.task_id}}/{{task.task_modelname}}/{{task.task_casename}}</td>
+                    <td>{{task.task_log}}</td>
+                    <td style="font-size: 15px;text-align: center">{{task.task_result}}</td>
+                    <td>{{task.update_time}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 <div id='ending'>&nbsp</div>
         
 <script type="text/javascript">

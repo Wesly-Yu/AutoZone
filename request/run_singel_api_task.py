@@ -57,7 +57,4 @@ def read_Results():
 
 
 
-#
-# if __name__ == '__main__':
-#     readSQL()
-#     read_Results()
+

@@ -13,7 +13,7 @@ import pyautogui
 from robotframework.tasks import write_name_txt,readSQLCounts,get_task_stepdata,getcasename_from_SQL,get_webtask_times
 import time
 from  robotframework.get_webcase_stepdata import readwebcaseSQL,write_to_txt,remove_webtest_txt,run_in_terminal
-
+from django.db.models import Q
 
 
 #显示web测试用例界面
@@ -65,10 +65,12 @@ def searche_web_casename(request):
     webcases = Webcase.objects.all().get_queryset().order_by('id')
     webcasename = request.GET.get("webcasename",'')
     if webcasename=="":
-        webcases=webcases
+        webcase_list = Webcase.objects.get_queryset().order_by('id')
     else:
-
-    return  render(request,"Web_test_robotframework.html", {"user": username, "webcases":webcases})
+        webcase_list = Webcase.objects.filter(Q(webcasename__contains=webcasename)).order_by("-id")
+    paginator = Paginator(webcase_list, 12)  # 设置分页数
+    webcases = paginator.page(1)
+    return  render(request,"Web_test_robotframework.html", {"user": username, "webcases":webcases,"webcasename":webcasename})
 
 
 

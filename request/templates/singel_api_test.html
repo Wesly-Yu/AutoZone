@@ -174,14 +174,16 @@ ul {
 <div class="col-sm-offset-4" style="font-size: 20px;color: #53245d;padding-top: 80px">
     <h5 href="#" style="font-size: 25px">单一的接口测试用例</h5>
 </div>
-<form class="navbar-form"  style="padding-top: 30px;margin-left: 7px">
-    <div class="form-group">
-        <input id="ipt2" name="Api_name" type="text" placeholder="用例名称" class="form-control">
-    </div>
-    <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white;">搜索</button>
-    <button id="btn1" type="button" class="btn btn-default"  data-toggle="modal" data-target="#addMyModal2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
-    {% csrf_token %}
-</form>
+<div class="page-header" >
+    <form class="navbar-form"  style="padding-top: 30px;margin-left: 7px" method="GET" action="/api_search_name/">
+        <div class="form-group">
+            <input id="ipt2" name="Apiname" type="text" placeholder="用例名称" class="form-control" value="{{ Apiname }}">
+        </div>
+        <button id="btn4" type="submit" class="btn btn-default" style="background:#53245d;color: white;">搜索</button>
+        <button id="btn1" type="button" class="btn btn-default"  data-toggle="modal" data-target="#addMyModal2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
+        {% csrf_token %}
+    </form>
+</div>
 <div class="modal fade" id="addMyModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -58,6 +58,15 @@ def del_web_casename(request):
         Webcase.objects.filter(id=webcaseID).delete()
         return render(request, "Web_test_robotframework.html", {"user": username, "webcases":webcases})
 
+#查询web用例
+@login_required
+def searche_web_casename(request):
+    username = request.session.get('user', '')
+    webcases = Webcase.objects.all()
+    return  render(request,"Web_test_robotframework.html", {"user": username, "webcases":webcases})
+
+
+
 
 #显示web测试步骤添加
 @login_required
@@ -68,6 +77,7 @@ def display_web_casesteps(request):
     keywords = Webcase_keywords.objects.all()
     webcasesteps = Webcasestep.objects.all()
     return render(request,"webcasestep_manage.html",{"user": username,"webcasesteps":webcasesteps,"webcase":webcase,"keywords":keywords})
+
 
 
 #删除web测试步骤

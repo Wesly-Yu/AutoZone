@@ -74,8 +74,14 @@ def singel_api_test(request):
 def search_api_name(request):
     username = request.session.get('user', '')
     steps = singel_Apis.objects.get_queryset().order_by('productid')
-    
-    return  render(request,"singel_api_test.html",{"user": username, "steps": steps})
+    Apiname = request.GET.get('Apiname')
+    if Apiname!='':
+        api_list = singel_Apis.objects.filter(Q(Apiname__contains=Apiname)).order_by("-productid")
+    else:
+        api_list = singel_Apis.objects.get_queryset().order_by('productid')
+    paginator = Paginator(api_list, 12)  # 设置分页数
+    steps = paginator.page(1)
+    return  render(request,"singel_api_test.html",{"user": username, "steps": steps,"Apiname":Apiname})
 
 
 #添加单一的接口

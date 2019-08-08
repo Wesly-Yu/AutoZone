@@ -76,6 +76,7 @@ class singel_apis_task(models.Model):
     task_Apimethod = models.CharField('请求方式', max_length=20, default='GET')
     task_Apiexpectresult = models.CharField('预期结果', max_length=200)
     task_status = models.CharField('状态', max_length=200, default=True)
+    task_status_code = models.CharField('状态码',max_length=200,null=True)
     task_response = models.CharField('返回结果', max_length=500)
     task_retry = models.CharField('失败重跑次数', max_length=10)
     task_result = models.CharField('测试结果', max_length=20)

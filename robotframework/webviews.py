@@ -38,7 +38,7 @@ def web_testcase_page(request):
 @login_required
 def add_web_casename(request):
     username = request.session.get('user', '')
-    webcases = Webcase.objects.all()
+    webcases = Webcase.objects.all().get_queryset().order_by('id')
     if request.method == "POST":
         webmodelname = request.POST.get("webmodelname", )
         webcasename = request.POST.get("webcasename", )
@@ -52,7 +52,7 @@ def add_web_casename(request):
 @login_required
 def del_web_casename(request):
     username = request.session.get('user', '')
-    webcases = Webcase.objects.all()
+    webcases = Webcase.objects.all().get_queryset().order_by('id')
     if request.method == "POST":
         webcaseID = request.POST.get("id", )
         Webcase.objects.filter(id=webcaseID).delete()
@@ -62,7 +62,12 @@ def del_web_casename(request):
 @login_required
 def searche_web_casename(request):
     username = request.session.get('user', '')
-    webcases = Webcase.objects.all()
+    webcases = Webcase.objects.all().get_queryset().order_by('id')
+    webcasename = request.GET.get("webcasename",'')
+    if webcasename=="":
+        webcases=webcases
+    else:
+
     return  render(request,"Web_test_robotframework.html", {"user": username, "webcases":webcases})
 
 

@@ -2,11 +2,8 @@
 import requests, time, sys, re
 import urllib,zlib
 import pymysql
-import requests
-import unittest
 from trace import CoverageResults
 import json
-from idlelib.rpc import response_queue
 from  time import sleep
 import os
 import requests
@@ -30,8 +27,10 @@ def singel_api_interfaceTest(case_list):
             formdata =json.dumps(eval(case[5]))
             method = case[6]
             expectresult = eval(case[7])
+            statuscode=eval(case[8])
             assert_keys = list(expectresult.keys())
             assert_values = list(expectresult.values())
+            assert_statuscode = list(statuscode.values())
         except Exception as  e :
             return '测试用例格式不正确！！%s'%e
         if method.upper() == 'GET':
@@ -40,7 +39,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.get(url=url, headers=header)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -50,7 +49,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.get(url=url, headers=header,formdata=formdata)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -63,7 +62,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.post(url=url, headers=header)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -74,7 +73,7 @@ def singel_api_interfaceTest(case_list):
                 print(results.json())
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -86,7 +85,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.put(url=url, headers=header,data=formdatas)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -97,7 +96,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.put(url=url, headers=header,data=formdatas)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
                     result_flage.append('fail')
@@ -108,7 +107,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.put(url=url, header=header,data=formdata)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:
@@ -118,7 +117,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.put(url=url, headers=header, data=formdata)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
-                if res == len(assert_keys):
+                if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')
                 else:

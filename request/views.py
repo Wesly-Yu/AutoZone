@@ -474,7 +474,6 @@ def get_progress_bar(request):
     response={}
     global finish
     getfinish=finish
-    # print (getfinish)
     finish = 0
     response["getfinish"]=getfinish
     return JsonResponse(response)

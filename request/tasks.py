@@ -39,6 +39,7 @@ def singel_api_interfaceTest(case_list):
                 results = requests.get(url=url, headers=header)
                 res = assert_result(results, assert_keys, assert_values, default=None)
                 responses.append(res)
+                #判断结果和关键字是否正确
                 if res == len(assert_keys)&results.status_code==assert_statuscode:
                     result_flage.append('pass')
                     caseWriteResult(case_id, modelname, case_name, results, 'Pass')

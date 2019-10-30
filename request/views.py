@@ -125,7 +125,7 @@ def add_singel_api(request):
             error_Message = ""
         else:
             error_Message="用例名称重复，新增失败"
-    return render(request, "singe_api_test.html", {"user": username, "steps": steps,"codeMessage":error_Message})
+    return render(request, "singe_api_test.html", {"user": username, "steps": steps})
 
 
 #删除单一接口

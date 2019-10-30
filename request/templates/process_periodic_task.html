@@ -98,7 +98,8 @@
                     <tbody>
                     <tr>
                         {% for step  in steps %}
-                        <td id="checkboxone"><input type="checkbox" onclick="go_add('{{step.productid}}','{{step.process_name}}','{{step.modelname}}','{{step.depend_Apiname}}','{{step.Apiurl_data}}','{{step.Apimethod}}',{{step.Apiheader}},{{step.Apiformdata}},{{step.Apidependdata}},{{step.Apiexpectresult}})"></td>
+{#                            //'{{step.Apiurl_data}}','{{step.Apimethod}}',{{step.Apiheader}},{{step.Apiformdata}},{{step.Apidependdata}},{{step.Apiexpectresult}})#}
+                        <td id="checkboxone"><input type="checkbox" onclick="go_add('{{step.productid}}','{{step.process_name}}','{{step.modelname}}')"></td>
                         <td>{{step.productid}}</td>
                         <td>{{step.process_name}}</td>
                         <td>{{step.modelname}}</td>
